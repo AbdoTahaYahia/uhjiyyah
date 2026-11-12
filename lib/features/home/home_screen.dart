@@ -127,7 +127,7 @@ class HomeScreen extends ConsumerWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: const [
                               Text(
-                                'غرف اللعب أونلاين (Firebase)',
+                                'غرف اللعب أونلاين',
                                 style: TextStyle(
                                   color: AppColors.pureWhite,
                                   fontSize: 16,

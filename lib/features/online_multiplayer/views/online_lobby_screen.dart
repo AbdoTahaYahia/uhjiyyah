@@ -79,7 +79,7 @@ class _OnlineLobbyScreenState extends ConsumerState<OnlineLobbyScreen> {
                       ),
                   const SizedBox(height: 16),
                   const Text(
-                    'غرف اللعب المشتركة (Firebase)',
+                    'غرف اللعب أونلاين',
                     style: TextStyle(
                       color: AppColors.pureWhite,
                       fontSize: 22,
