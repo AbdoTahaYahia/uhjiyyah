@@ -297,21 +297,23 @@ class OnlineRoomService {
     if (db != null) {
       try {
         final docRef = db.collection('rooms').doc(normalizedCode);
-        final doc = await docRef.get();
+        final doc = await docRef.get().timeout(_timeout);
         if (doc.exists) {
           final room = OnlineRoom.fromMap(doc.data()!);
           final remaining = room.players.where((p) => p.id != playerId).toList();
           if (remaining.isEmpty) {
-            await docRef.delete();
+            await docRef.delete().timeout(_timeout);
           } else {
             await docRef.update({
               'players': remaining.map((p) => p.toMap()).toList(),
               if (room.hostId == playerId) 'hostId': remaining.first.id,
-            });
+            }).timeout(_timeout);
           }
           return;
         }
-      } catch (_) {}
+      } catch (e) {
+        _handleFirestoreError(e);
+      }
     }
 
     final room = _localRooms[normalizedCode];

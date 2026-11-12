@@ -17,24 +17,15 @@ class OnlineRoomScreen extends ConsumerWidget {
     final room = state.room;
 
     if (room == null) {
-      return Directionality(
-        textDirection: TextDirection.rtl,
-        child: Scaffold(
-          backgroundColor: AppColors.background,
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text('تم مغادرة الغرفة', style: TextStyle(color: AppColors.textPrimary, fontSize: 18)),
-                const SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () => context.go('/home'),
-                  style: ElevatedButton.styleFrom(backgroundColor: AppColors.pureWhite, foregroundColor: AppColors.background),
-                  child: const Text('العودة للرئيسية'),
-                ),
-              ],
-            ),
-          ),
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (context.mounted) {
+          context.go('/home');
+        }
+      });
+      return const Scaffold(
+        backgroundColor: AppColors.background,
+        body: Center(
+          child: CircularProgressIndicator(color: AppColors.pureWhite),
         ),
       );
     }
@@ -382,9 +373,11 @@ class OnlineRoomScreen extends ConsumerWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.pop(ctx);
-                ref.read(onlineRoomProvider.notifier).leaveRoom();
+                Navigator.of(ctx).pop();
                 context.go('/home');
+                Future.microtask(() {
+                  ref.read(onlineRoomProvider.notifier).leaveRoom();
+                });
               },
               style: ElevatedButton.styleFrom(backgroundColor: AppColors.danger),
               child: const Text('مغادرة', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
