@@ -114,6 +114,52 @@ class OnlineRoomService {
     return updated;
   }
 
+  Future<OnlineRoom?> joinRandomRoom({
+    required String playerName,
+    required String playerId,
+  }) async {
+    final db = _firestore;
+    if (db != null) {
+      try {
+        final query = await db
+            .collection('rooms')
+            .where('status', isEqualTo: 'waiting')
+            .limit(10)
+            .get();
+
+        for (final doc in query.docs) {
+          final room = OnlineRoom.fromMap(doc.data());
+          if (room.players.length < 12) {
+            return await joinRoom(
+              code: room.code,
+              playerName: playerName,
+              playerId: playerId,
+            );
+          }
+        }
+      } catch (_) {}
+    }
+
+    // Local fallback search
+    final waitingRooms = _localRooms.values
+        .where((r) => r.status == 'waiting' && r.players.length < 12)
+        .toList();
+
+    if (waitingRooms.isNotEmpty) {
+      return await joinRoom(
+        code: waitingRooms.first.code,
+        playerName: playerName,
+        playerId: playerId,
+      );
+    }
+
+    // If no room is waiting, create one automatically
+    return await createRoom(
+      hostName: playerName,
+      hostId: playerId,
+    );
+  }
+
   Stream<OnlineRoom?> streamRoom(String code) {
     final normalizedCode = code.trim().toUpperCase();
     final db = _firestore;

@@ -124,6 +124,45 @@ class OnlineRoomNotifier extends Notifier<OnlineRoomState> {
     }
   }
 
+  Future<bool> joinRandomRoom({
+    required String playerName,
+    required String playerId,
+  }) async {
+    _roomSubscription?.cancel();
+    state = state.copyWith(isLoading: true, errorMessage: null);
+
+    try {
+      final room = await _service.joinRandomRoom(
+        playerName: playerName,
+        playerId: playerId,
+      );
+
+      if (room == null) {
+        state = state.copyWith(
+          isLoading: false,
+          errorMessage: 'تعذر الدخول العشوائي. يرجى المحاولة مرة أخرى.',
+        );
+        return false;
+      }
+
+      state = OnlineRoomState(
+        room: room,
+        myPlayerId: playerId,
+        myPlayerName: playerName,
+        isLoading: false,
+      );
+
+      _listenToRoom(room.code);
+      return true;
+    } catch (e) {
+      state = state.copyWith(
+        isLoading: false,
+        errorMessage: 'حدث خطأ أثناء الدخول العشوائي.',
+      );
+      return false;
+    }
+  }
+
   void _listenToRoom(String code) {
     _roomSubscription?.cancel();
     _roomSubscription = _service.streamRoom(code).listen((updatedRoom) {

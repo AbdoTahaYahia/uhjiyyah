@@ -249,6 +249,85 @@ class _OnlineLobbyScreenState extends ConsumerState<OnlineLobbyScreen> {
               ),
               const SizedBox(height: 20),
 
+              // Quick Random Match Option
+              Container(
+                padding: const EdgeInsets.all(18),
+                decoration: BoxDecoration(
+                  color: AppColors.surface,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: AppColors.pureWhite, width: 1.3),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: AppColors.surfaceLight,
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(color: AppColors.surfaceBorder),
+                          ),
+                          child: const Icon(Icons.shuffle, color: AppColors.pureWhite, size: 20),
+                        ),
+                        const SizedBox(width: 12),
+                        const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'دخول عشوائي سريع',
+                              style: TextStyle(color: AppColors.pureWhite, fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(height: 2),
+                            Text(
+                              'انضم لأي غرفة مفتوحة بانتظار لاعبين فوراً',
+                              style: TextStyle(color: AppColors.textSecondary, fontSize: 12),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 14),
+                    SizedBox(
+                      height: 48,
+                      child: OutlinedButton.icon(
+                        onPressed: roomState.isLoading
+                            ? null
+                            : () async {
+                                final name = _nameController.text.trim();
+                                if (name.isEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(content: Text('يرجى كتابة اسمك أولاً للدخول العشوائي')),
+                                  );
+                                  return;
+                                }
+                                final id = _selectedLocalPlayerId ?? const Uuid().v4();
+                                final success = await ref.read(onlineRoomProvider.notifier).joinRandomRoom(
+                                      playerName: name,
+                                      playerId: id,
+                                    );
+                                if (success && context.mounted) {
+                                  context.push('/online/room');
+                                }
+                              },
+                        icon: const Icon(Icons.bolt, size: 20),
+                        label: Text(
+                          roomState.isLoading ? 'جاري البحث عن غرفة...' : 'بحث ودخول عشوائي الآن',
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: AppColors.pureWhite,
+                          side: const BorderSide(color: AppColors.pureWhite, width: 1.2),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+
               // Join Room Option
               Container(
                 padding: const EdgeInsets.all(18),
