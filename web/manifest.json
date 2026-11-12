@@ -1,11 +1,11 @@
 {
-    "name": "uhjiyyah",
-    "short_name": "uhjiyyah",
+    "name": "أُحْجِيَّة",
+    "short_name": "أُحْجِيَّة",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#08080C",
+    "theme_color": "#08080C",
+    "description": "منصة ألعاب جماعية ذكية وممتعة",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
