@@ -10,13 +10,26 @@ class OnlineRoomService {
   OnlineRoomService._internal();
 
   static const _timeout = Duration(milliseconds: 2000);
+  bool _isFirestoreAvailable = true;
+
+  void _handleFirestoreError(dynamic e) {
+    if (e is FirebaseException &&
+        (e.code == 'permission-denied' ||
+            e.code == 'unavailable' ||
+            e.message?.contains('disabled') == true)) {
+      _isFirestoreAvailable = false;
+    }
+  }
 
   FirebaseFirestore? get _firestore {
+    if (!_isFirestoreAvailable) return null;
     try {
       if (Firebase.apps.isNotEmpty) {
         return FirebaseFirestore.instance;
       }
-    } catch (_) {}
+    } catch (_) {
+      _isFirestoreAvailable = false;
+    }
     return null;
   }
 
@@ -56,7 +69,9 @@ class OnlineRoomService {
       try {
         await db.collection('rooms').doc(code).set(room.toMap()).timeout(_timeout);
         return room;
-      } catch (_) {}
+      } catch (e) {
+        _handleFirestoreError(e);
+      }
     }
 
     // Local fallback
@@ -100,7 +115,9 @@ class OnlineRoomService {
             .update({'players': updatedPlayers.map((p) => p.toMap()).toList()})
             .timeout(_timeout);
         return updatedRoom;
-      } catch (_) {}
+      } catch (e) {
+        _handleFirestoreError(e);
+      }
     }
 
     // Local fallback
@@ -142,7 +159,9 @@ class OnlineRoomService {
             );
           }
         }
-      } catch (_) {}
+      } catch (e) {
+        _handleFirestoreError(e);
+      }
     }
 
     // Local fallback search
@@ -169,13 +188,23 @@ class OnlineRoomService {
     final normalizedCode = code.trim().toUpperCase();
     final db = _firestore;
 
-    if (db != null) {
+    if (db != null && _isFirestoreAvailable) {
       try {
-        return db.collection('rooms').doc(normalizedCode).snapshots().map((snapshot) {
-          if (!snapshot.exists || snapshot.data() == null) return null;
-          return OnlineRoom.fromMap(snapshot.data()!);
-        });
-      } catch (_) {}
+        return db
+            .collection('rooms')
+            .doc(normalizedCode)
+            .snapshots()
+            .map((snapshot) {
+              if (!snapshot.exists || snapshot.data() == null) return null;
+              return OnlineRoom.fromMap(snapshot.data()!);
+            })
+            .handleError((e) {
+              _handleFirestoreError(e);
+              return _localRooms[normalizedCode];
+            });
+      } catch (e) {
+        _handleFirestoreError(e);
+      }
     }
 
     return _getOrCreateLocalController(normalizedCode).stream;
