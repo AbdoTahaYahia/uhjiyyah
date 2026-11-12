@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/online_room.dart';
 import '../services/online_room_service.dart';
@@ -170,16 +171,26 @@ class OnlineRoomNotifier extends Notifier<OnlineRoomState> {
 
   void _listenToRoom(String code) {
     _roomSubscription?.cancel();
-    _roomSubscription = _service.streamRoom(code).listen((updatedRoom) {
-      if (updatedRoom == null) {
+    _roomSubscription = _service.streamRoom(code).listen(
+      (updatedRoom) {
+        if (updatedRoom == null) {
+          state = state.copyWith(
+            room: null,
+            errorMessage: 'تم إغلاق الغرفة من قبل المضيف.',
+          );
+        } else {
+          state = state.copyWith(room: updatedRoom);
+        }
+      },
+      onError: (error) {
+        // Catch any Firestore permission or network errors safely to prevent crashes
+        debugPrint('Room stream error caught safely: $error');
         state = state.copyWith(
-          room: null,
-          errorMessage: 'تم إغلاق الغرفة من قبل المضيف.',
+          errorMessage: 'جاري الاتصال والمزامنة...',
         );
-      } else {
-        state = state.copyWith(room: updatedRoom);
-      }
-    });
+      },
+      cancelOnError: false,
+    );
   }
 
   Future<void> changeGameMode(String gameModeId) async {
