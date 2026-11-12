@@ -6,6 +6,8 @@ import 'package:uhjiyyah/features/heads_up_mode/views/heads_up_rules_screen.dart
 import 'package:uhjiyyah/features/home/home_screen.dart';
 import 'package:uhjiyyah/features/mafia_mode/views/mafia_game_screen.dart';
 import 'package:uhjiyyah/features/mafia_mode/views/mafia_rules_screen.dart';
+import 'package:uhjiyyah/features/online_multiplayer/views/online_lobby_screen.dart';
+import 'package:uhjiyyah/features/online_multiplayer/views/online_room_screen.dart';
 import 'package:uhjiyyah/features/out_of_context_mode/views/out_of_context_game_screen.dart';
 import 'package:uhjiyyah/features/out_of_context_mode/views/out_of_context_rules_screen.dart';
 import 'package:uhjiyyah/features/players_setup/players_setup_screen.dart';
@@ -40,6 +42,18 @@ final GoRouter appRouter = GoRouter(
       path: '/home',
       name: 'home',
       builder: (context, state) => const HomeScreen(),
+    ),
+
+    // Online Multiplayer (Firebase)
+    GoRoute(
+      path: '/online',
+      name: 'online_lobby',
+      builder: (context, state) => const OnlineLobbyScreen(),
+    ),
+    GoRoute(
+      path: '/online/room',
+      name: 'online_room',
+      builder: (context, state) => const OnlineRoomScreen(),
     ),
 
     // 1. Mafia Mode

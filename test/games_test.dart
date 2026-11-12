@@ -8,6 +8,8 @@ import 'package:uhjiyyah/features/charades_mode/providers/charades_game_provider
 import 'package:uhjiyyah/features/heads_up_mode/models/heads_up_deck.dart';
 import 'package:uhjiyyah/features/heads_up_mode/models/heads_up_game_state.dart';
 import 'package:uhjiyyah/features/heads_up_mode/providers/heads_up_game_provider.dart';
+import 'package:uhjiyyah/features/online_multiplayer/providers/online_room_provider.dart';
+import 'package:uhjiyyah/features/online_multiplayer/services/online_room_service.dart';
 import 'package:uhjiyyah/features/out_of_context_mode/models/out_of_context_game_state.dart';
 import 'package:uhjiyyah/features/out_of_context_mode/providers/out_of_context_game_provider.dart';
 import 'package:uhjiyyah/features/spy_mode/models/spy_game_state.dart';
@@ -229,5 +231,56 @@ void main() {
     expect(state.phase, SpyGamePhase.reveal);
     expect(state.players.where((p) => p.isSpy).length, 1);
     expect(state.players.where((p) => !p.isSpy).length, 3);
+  });
+
+  test('Online Room Service creates, joins, and manages room members', () async {
+    final service = OnlineRoomService();
+
+    final room = await service.createRoom(
+      hostName: 'كريم',
+      hostId: 'host-1',
+      gameModeId: 'mafia',
+    );
+    expect(room.code.length, 5);
+    expect(room.players.length, 1);
+    expect(room.players.first.name, 'كريم');
+    expect(room.players.first.isHost, isTrue);
+
+    // Join room with guest
+    final joined = await service.joinRoom(
+      code: room.code,
+      playerName: 'سارة',
+      playerId: 'guest-2',
+    );
+    expect(joined, isNotNull);
+    expect(joined!.players.length, 2);
+    expect(joined.players[1].name, 'سارة');
+
+    // Update ready
+    await service.setPlayerReady(room.code, 'guest-2', true);
+
+    // Change game mode
+    await service.updateGameMode(room.code, 'spy');
+
+    // Leave room
+    await service.leaveRoom(room.code, 'guest-2');
+  });
+
+  test('Online Room Notifier handles state transitions', () async {
+    final container = ProviderContainer();
+    addTearDown(container.dispose);
+
+    final notifier = container.read(onlineRoomProvider.notifier);
+    final created = await notifier.createRoom(hostName: 'عمر', hostId: 'host-99');
+    expect(created, isTrue);
+
+    final state = container.read(onlineRoomProvider);
+    expect(state.room, isNotNull);
+    expect(state.isHost, isTrue);
+    expect(state.myPlayerName, 'عمر');
+
+    await notifier.changeGameMode('charades');
+    await notifier.leaveRoom();
+    expect(container.read(onlineRoomProvider).room, isNull);
   });
 }

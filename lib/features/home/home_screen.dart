@@ -90,6 +90,65 @@ class HomeScreen extends ConsumerWidget {
                 ),
               ).animate().fadeIn(duration: 350.ms).slideX(begin: 0.05, end: 0),
 
+              // Online Multiplayer Banner Card
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+                child: InkWell(
+                  onTap: () => context.push('/online'),
+                  borderRadius: BorderRadius.circular(16),
+                  child: Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: AppColors.surface,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: AppColors.pureWhite, width: 1.2),
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 44,
+                          height: 44,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColors.background,
+                            border: Border.all(color: AppColors.surfaceBorder),
+                          ),
+                          child: const Icon(Icons.wifi, color: AppColors.pureWhite, size: 22)
+                              .animate(onPlay: (c) => c.repeat(reverse: true))
+                              .scale(
+                                begin: const Offset(0.95, 0.95),
+                                end: const Offset(1.1, 1.1),
+                                duration: 1200.ms,
+                              ),
+                        ),
+                        const SizedBox(width: 14),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: const [
+                              Text(
+                                'غرف اللعب أونلاين (Firebase)',
+                                style: TextStyle(
+                                  color: AppColors.pureWhite,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: 3),
+                              Text(
+                                'أنشئ غرفة أو انضم برمز للعب مع أصدقائك عن بُعد',
+                                style: TextStyle(color: AppColors.textSecondary, fontSize: 12),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Icon(Icons.arrow_forward_ios, color: AppColors.pureWhite, size: 16),
+                      ],
+                    ),
+                  ),
+                ),
+              ).animate().fadeIn(duration: 400.ms).slideY(begin: -0.05, end: 0),
+
               // Vertically stacked games list
               Expanded(
                 child: ListView.separated(
