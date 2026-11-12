@@ -28,7 +28,7 @@ class SpyGameNotifier extends Notifier<SpyGameState> {
     for (int i = 0; i < globalPlayers.length; i++) {
       final isSpy = (i == spyIndex);
       final role = isSpy
-          ? 'الجاسوس 🕵️‍♂️'
+          ? 'الجاسوس'
           : shuffledRoles[i % shuffledRoles.length];
 
       players.add(
@@ -108,7 +108,7 @@ class SpyGameNotifier extends Notifier<SpyGameState> {
       // Wrong person accused -> Spy wins!
       state = state.copyWith(
         phase: SpyGamePhase.gameOver,
-        winner: 'الجاسوس 🕵️‍♂️',
+        winner: 'الجاسوس',
         winnerReason: 'أخطأ أهل المكان في الاتهام واشتبهوا بشخص بريء! انتصر الجاسوس!',
       );
     }
@@ -119,13 +119,13 @@ class SpyGameNotifier extends Notifier<SpyGameState> {
     if (guessedLocationName == state.location.nameAr) {
       state = state.copyWith(
         phase: SpyGamePhase.gameOver,
-        winner: 'الجاسوس 🕵️‍♂️',
+        winner: 'الجاسوس',
         winnerReason: 'رغم كشفه، استطاع الجاسوس معرفة المكان السري بدقة (${state.location.nameAr}) وانتصر!',
       );
     } else {
       state = state.copyWith(
         phase: SpyGamePhase.gameOver,
-        winner: 'أهل المكان 👥',
+        winner: 'أهل المكان',
         winnerReason: 'فشل الجاسوس في تخمين المكان الصحيح! انتصر أهل المكان وحافظوا على السرية!',
       );
     }

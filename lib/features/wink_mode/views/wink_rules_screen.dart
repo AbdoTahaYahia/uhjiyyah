@@ -19,7 +19,7 @@ class WinkRulesScreen extends ConsumerWidget {
       child: Scaffold(
         backgroundColor: AppColors.background,
         appBar: AppBar(
-          title: const Text('الغمزة 👁️'),
+          title: const Text('الغمزة '),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios_new, size: 20),
             onPressed: () => context.go('/home'),
@@ -61,11 +61,11 @@ class WinkRulesScreen extends ConsumerWidget {
                       style: TextStyle(color: AppColors.pureWhite, fontSize: 17, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 8),
-                    _buildRoleCard('🔍 المحقق', 'معروف للجميع ويجلس في وسط الدائرة أو يراقب عيون الجميع لكشف الغامز.'),
+                    _buildRoleCard(' المحقق', 'معروف للجميع ويجلس في وسط الدائرة أو يراقب عيون الجميع لكشف الغامز.'),
                     const SizedBox(height: 8),
-                    _buildRoleCard('😉 الغامز (سري)', 'يحاول الغمز بعينه لأي مواطن دون أن يراه المحقق.'),
+                    _buildRoleCard(' الغامز (سري)', 'يحاول الغمز بعينه لأي مواطن دون أن يراه المحقق.'),
                     const SizedBox(height: 8),
-                    _buildRoleCard('👥 المواطنون', 'إذا غمِز لك، انتظر 5 ثوانٍ ثم اضغط على زر "تم إقصائي".'),
+                    _buildRoleCard(' المواطنون', 'إذا غمِز لك، انتظر 5 ثوانٍ ثم اضغط على زر "تم إقصائي".'),
                     const SizedBox(height: 20),
 
                     const Text(
@@ -126,7 +126,7 @@ class WinkRulesScreen extends ConsumerWidget {
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     ),
                     child: Text(
-                      players.length < 4 ? 'يلزم 4 لاعبين على الأقل' : 'توزيع الأدوار وبدء اللعبة 👁️',
+                      players.length < 4 ? 'يلزم 4 لاعبين على الأقل' : 'توزيع الأدوار وبدء اللعبة ',
                       style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ),

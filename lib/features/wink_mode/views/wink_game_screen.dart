@@ -24,7 +24,7 @@ class WinkGameScreen extends ConsumerWidget {
         child: Scaffold(
           backgroundColor: AppColors.background,
           appBar: AppBar(
-            title: const Text('الغمزة 👁️'),
+            title: const Text('الغمزة '),
             leading: IconButton(
               icon: const Icon(Icons.close, color: AppColors.danger),
               onPressed: () => _showExitDialog(context, ref),
@@ -56,15 +56,15 @@ class WinkGameScreen extends ConsumerWidget {
 
     switch (currentPlayer.role) {
       case WinkRole.detective:
-        roleName = 'المحقق 🔍';
+        roleName = 'المحقق ';
         roleDesc = 'أنت مكشوف للجميع! مهمتك مراقبة عيون اللاعبين وكشف من يغمز.';
         roleIcon = Icons.search;
       case WinkRole.winker:
-        roleName = 'الغامز 😉';
+        roleName = 'الغامز ';
         roleDesc = 'سرّي للغاية! اغمز للاعبين بعينك لإقصائهم دون أن يراك المحقق.';
         roleIcon = Icons.visibility;
       case WinkRole.citizen:
-        roleName = 'مواطن 👥';
+        roleName = 'مواطن ';
         roleDesc = 'إذا تم الغمز لك، انتظر 5 ثوانٍ ثم أعلن إقصاءك!';
         roleIcon = Icons.person_outline;
     }
@@ -154,7 +154,7 @@ class WinkGameScreen extends ConsumerWidget {
                           ),
                           const SizedBox(height: 8),
                           const Text(
-                            'المس الكرت لرؤية دورك سراً 🔒',
+                            'المس الكرت لرؤية دورك سراً ',
                             style: TextStyle(color: AppColors.textSecondary, fontSize: 14),
                           ),
                         ],
@@ -177,7 +177,7 @@ class WinkGameScreen extends ConsumerWidget {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
               child: Text(
-                isLastPlayer ? 'بدء اللعب في الدائرة 👁️' : 'التالي (إخفاء الدور)',
+                isLastPlayer ? 'بدء اللعب في الدائرة ' : 'التالي (إخفاء الدور)',
                 style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),
@@ -285,7 +285,7 @@ class WinkGameScreen extends ConsumerWidget {
                             side: const BorderSide(color: AppColors.surfaceBorder),
                             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                           ),
-                          child: const Text('إقصاء (غمز لي) 💀', style: TextStyle(color: AppColors.textSecondary, fontSize: 12)),
+                          child: const Text('إقصاء (غمز لي) ', style: TextStyle(color: AppColors.textSecondary, fontSize: 12)),
                         )
                       else if (!player.isAlive)
                         const Text('تم إقصاؤه', style: TextStyle(color: AppColors.textSecondary, fontSize: 13)),
@@ -307,7 +307,7 @@ class WinkGameScreen extends ConsumerWidget {
                 foregroundColor: AppColors.background,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
-              child: const Text('🔍 المحقق مستعد للاتهام!', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              child: const Text(' المحقق مستعد للاتهام!', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             ),
           ),
         ],
@@ -335,7 +335,7 @@ class WinkGameScreen extends ConsumerWidget {
             child: Column(
               children: [
                 const Text(
-                  'اتهام المحقق 🔍',
+                  'اتهام المحقق ',
                   style: TextStyle(color: AppColors.pureWhite, fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 6),
@@ -427,7 +427,7 @@ class WinkGameScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 20),
           Text(
-            isDetectiveWin ? 'فاز المحقق والمواطنون! 🏆' : 'فاز الغامز المخاتل! 👁️',
+            isDetectiveWin ? 'فاز المحقق والمواطنون! ' : 'فاز الغامز المخاتل! ',
             style: const TextStyle(color: AppColors.pureWhite, fontSize: 26, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 12),
@@ -479,7 +479,7 @@ class WinkGameScreen extends ConsumerWidget {
                 foregroundColor: AppColors.background,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
-              child: const Text('جولة جديدة 🔄', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              child: const Text('جولة جديدة ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             ),
           ),
           const SizedBox(height: 10),

@@ -24,7 +24,7 @@ class CharadesGameScreen extends ConsumerWidget {
         child: Scaffold(
           backgroundColor: AppColors.background,
           appBar: AppBar(
-            title: const Text('تمثيل (بدون كلام) 🎭'),
+            title: const Text('تمثيل (بدون كلام) '),
             leading: IconButton(
               icon: const Icon(Icons.close, color: AppColors.danger),
               onPressed: () => _showExitDialog(context, ref),
@@ -94,7 +94,7 @@ class CharadesGameScreen extends ConsumerWidget {
                 foregroundColor: AppColors.background,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
-              child: const Text('أنا الممثل، أظهر الكلمة وابدأ 🎬', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              child: const Text('أنا الممثل، أظهر الكلمة وابدأ ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             ),
           ),
         ],
@@ -180,7 +180,7 @@ class CharadesGameScreen extends ConsumerWidget {
                   ),
                   const SizedBox(height: 20),
                   const Text(
-                    '🤫 ممنوع الكلام أو الإشارة للحروف!',
+                    ' ممنوع الكلام أو الإشارة للحروف!',
                     style: TextStyle(color: AppColors.textSecondary, fontSize: 13),
                   ),
                 ],
@@ -204,7 +204,7 @@ class CharadesGameScreen extends ConsumerWidget {
                       foregroundColor: AppColors.textPrimary,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     ),
-                    child: const Text('لم ينجح / تخطي ❌', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    child: const Text('لم ينجح / تخطي ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                   ),
                 ),
               ),
@@ -219,7 +219,7 @@ class CharadesGameScreen extends ConsumerWidget {
                       foregroundColor: AppColors.background,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     ),
-                    child: const Text('عرفوها! (+1) 👏', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    child: const Text('عرفوها! (+1) ', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   ),
                 ),
               ),
@@ -248,7 +248,7 @@ class CharadesGameScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            success ? 'أحسنتم! نقطة إضافية 🎉' : 'حظ أوفر في الجولة القادمة!',
+            success ? 'أحسنتم! نقطة إضافية ' : 'حظ أوفر في الجولة القادمة!',
             style: const TextStyle(color: AppColors.pureWhite, fontSize: 24, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
@@ -268,7 +268,7 @@ class CharadesGameScreen extends ConsumerWidget {
                 foregroundColor: AppColors.background,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
-              child: const Text('الدور التالي ⏩', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              child: const Text('الدور التالي ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             ),
           ),
         ],
@@ -280,11 +280,11 @@ class CharadesGameScreen extends ConsumerWidget {
   Widget _buildGameOverView(BuildContext context, WidgetRef ref, CharadesGameState state) {
     String winnerText;
     if (state.teamAScore > state.teamBScore) {
-      winnerText = 'الفائز: ${state.teamAName} 🏆';
+      winnerText = 'الفائز: ${state.teamAName} ';
     } else if (state.teamBScore > state.teamAScore) {
-      winnerText = 'الفائز: ${state.teamBName} 🏆';
+      winnerText = 'الفائز: ${state.teamBName} ';
     } else {
-      winnerText = 'تعادل بين الفريقين! 🤝';
+      winnerText = 'تعادل بين الفريقين! ';
     }
 
     return Padding(
@@ -320,7 +320,7 @@ class CharadesGameScreen extends ConsumerWidget {
                 foregroundColor: AppColors.background,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
-              child: const Text('مباراة جديدة 🔄', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              child: const Text('مباراة جديدة ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             ),
           ),
           const SizedBox(height: 10),

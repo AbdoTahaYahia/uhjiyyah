@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'heads_up_deck.dart';
 
 enum HeadsUpGamePhase {
@@ -24,7 +25,7 @@ class HeadsUpGameState {
       id: '',
       nameAr: '',
       descriptionAr: '',
-      emoji: '',
+      icon: Icons.category_outlined,
       words: [],
     ),
     this.remainingWords = const [],

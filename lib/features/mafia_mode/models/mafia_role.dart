@@ -53,19 +53,8 @@ enum MafiaRole {
     }
   }
 
-  /// Emoji representation matching Lamma game cards.
-  String get emoji {
-    switch (this) {
-      case MafiaRole.mafia:
-        return '💀';
-      case MafiaRole.doctor:
-        return '🩺';
-      case MafiaRole.detective:
-        return '🕵️';
-      case MafiaRole.citizen:
-        return '🧑‍🌾';
-    }
-  }
+  /// Icon or text representation.
+  String get emoji => '';
 
   /// Secret instruction displayed to the player during role reveal.
   String get instructionsAr {

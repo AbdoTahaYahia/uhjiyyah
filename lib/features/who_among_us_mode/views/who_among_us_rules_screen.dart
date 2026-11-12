@@ -19,7 +19,7 @@ class WhoAmongUsRulesScreen extends ConsumerWidget {
       child: Scaffold(
         backgroundColor: AppColors.background,
         appBar: AppBar(
-          title: const Text('مين فينا 👥'),
+          title: const Text('مين فينا '),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios_new, size: 20),
             onPressed: () => context.go('/home'),
@@ -113,7 +113,7 @@ class WhoAmongUsRulesScreen extends ConsumerWidget {
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     ),
                     child: Text(
-                      players.length < 3 ? 'يلزم 3 لاعبين على الأقل' : 'ابدأ اللعبة الآن 🚀',
+                      players.length < 3 ? 'يلزم 3 لاعبين على الأقل' : 'ابدأ اللعبة الآن ',
                       style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ),

@@ -199,8 +199,8 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
                             ),
                             child: Text(
                               player.role.team == MafiaTeam.mafia
-                                  ? 'فريق المافيا 💀'
-                                  : 'فريق المواطنين 🧑‍🌾',
+                                  ? 'فريق المافيا '
+                                  : 'فريق المواطنين ',
                               style: const TextStyle(
                                 color: AppColors.textSecondary,
                                 fontSize: 13,
@@ -232,7 +232,7 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
                               child: Column(
                                 children: [
                                   const Text(
-                                    '👥 زملاؤك في المافيا:',
+                                    ' زملاؤك في المافيا:',
                                     style: TextStyle(
                                       color: AppColors.pureWhite,
                                       fontWeight: FontWeight.bold,
@@ -299,7 +299,7 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: const Text(
-                            '🔒 تأكد من عدم رؤية أي شخص آخر للشاشة قبل كشف الدور',
+                            ' تأكد من عدم رؤية أي شخص آخر للشاشة قبل كشف الدور',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: AppColors.textMuted,
@@ -324,8 +324,8 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
             },
             child: Text(
               !state.isCardRevealed
-                  ? 'اكشف دوري سراً 👁️'
-                  : (isLast ? 'إنهاء وبدء الجولة الليلية 🌃' : 'أخفِ دوري ومرر للتالي 🔒'),
+                  ? 'اكشف دوري سراً '
+                  : (isLast ? 'إنهاء وبدء الجولة الليلية ' : 'أخفِ دوري ومرر للتالي '),
             ),
           ),
         ],
@@ -354,7 +354,7 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
-                'الجولة المسائية 🌃',
+                'الجولة المسائية ',
                 style: TextStyle(
                   color: AppColors.pureWhite,
                   fontSize: 20,
@@ -428,7 +428,7 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: const Text(
-                        '🔒 جميع اللاعبين يستلمون الهاتف ليلاً لمنع كشف الأدوار. استلم الهاتف وتأكد من سرية الشاشة قبل البدء.',
+                        ' جميع اللاعبين يستلمون الهاتف ليلاً لمنع كشف الأدوار. استلم الهاتف وتأكد من سرية الشاشة قبل البدء.',
                         textAlign: TextAlign.center,
                         style: TextStyle(color: AppColors.textMuted, fontSize: 13),
                       ),
@@ -452,7 +452,7 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
                 setState(() => _selectedPlayerId = null);
                 notifier.revealNightAction();
               },
-              child: Text('أنا ${player.name}، ابدأ دوري الليلي 🌙'),
+              child: Text('أنا ${player.name}، ابدأ دوري الليلي '),
             )
           else
             _buildRoleNightSubmitButton(state, notifier, player),
@@ -469,7 +469,7 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _buildRoleHeader('💀', 'أنت المافيا!', 'اختر الضحية المراد اغتيالها هذه الليلة:'),
+            _buildRoleHeader('', 'أنت المافيا!', 'اختر الضحية المراد اغتيالها هذه الليلة:'),
             const SizedBox(height: 14),
             Expanded(
               child: ListView.separated(
@@ -495,7 +495,7 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _buildRoleHeader('🩺', 'أنت الطبيب!', 'اختر شخصاً لحمايته الليلة من القتل (يمكنك حماية نفسك):'),
+            _buildRoleHeader('', 'أنت الطبيب!', 'اختر شخصاً لحمايته الليلة من القتل (يمكنك حماية نفسك):'),
             const SizedBox(height: 14),
             Expanded(
               child: ListView.separated(
@@ -524,7 +524,7 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              _buildRoleHeader('🕵️', 'أنت المحقق!', 'اختر لاعباً للتحقق من هويته سراً:'),
+              _buildRoleHeader('', 'أنت المحقق!', 'اختر لاعباً للتحقق من هويته سراً:'),
               const SizedBox(height: 14),
               Expanded(
                 child: ListView.separated(
@@ -557,7 +557,7 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    state.detectiveInspectionResult == true ? '💀' : '🧑‍🌾',
+                    state.detectiveInspectionResult == true ? '' : '',
                     style: const TextStyle(fontSize: 60),
                   ),
                   const SizedBox(height: 16),
@@ -596,7 +596,7 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
             child: const Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text('😴', style: TextStyle(fontSize: 54)),
+                Text('', style: TextStyle(fontSize: 54)),
                 SizedBox(height: 16),
                 Text(
                   'أنت مواطن شريف نائم...',
@@ -635,7 +635,7 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
                   notifier.submitCurrentNightTurn(selectedTargetId: target);
                 }
               : null,
-          child: const Text('تأكيد الهدف وإنهاء دوري 💀'),
+          child: const Text('تأكيد الهدف وإنهاء دوري '),
         );
 
       case MafiaRole.doctor:
@@ -647,7 +647,7 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
                   notifier.submitCurrentNightTurn(selectedTargetId: target);
                 }
               : null,
-          child: const Text('تأكيد الحماية وإنهاء دوري 🛡️'),
+          child: const Text('تأكيد الحماية وإنهاء دوري '),
         );
 
       case MafiaRole.detective:
@@ -661,14 +661,14 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
                     notifier.submitCurrentNightTurn(selectedTargetId: target);
                   }
                 : null,
-            child: const Text('فحص هوية هذا اللاعب 🔍'),
+            child: const Text('فحص هوية هذا اللاعب '),
           );
         } else {
           return ElevatedButton(
             onPressed: () {
               notifier.submitCurrentNightTurn();
             },
-            child: const Text('فهمت، إنهاء دوري وتمرير الهاتف 🔒'),
+            child: const Text('فهمت، إنهاء دوري وتمرير الهاتف '),
           );
         }
 
@@ -677,7 +677,7 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
           onPressed: () {
             notifier.submitCurrentNightTurn();
           },
-          child: const Text('إنهاء دوري وتمرير الهاتف 🌙'),
+          child: const Text('إنهاء دوري وتمرير الهاتف '),
         );
     }
   }
@@ -720,7 +720,7 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Center(child: Text('🌅', style: TextStyle(fontSize: 64))),
+          const Center(child: Text('', style: TextStyle(fontSize: 64))),
           const SizedBox(height: 16),
           const Text(
             'أشرقت الشمس على القرية!',
@@ -743,7 +743,7 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
             child: state.wasSavedByDoctor
                 ? const Column(
                     children: [
-                      Text('🛡️', style: TextStyle(fontSize: 40)),
+                      Text('', style: TextStyle(fontSize: 40)),
                       SizedBox(height: 12),
                       Text(
                         'استيقظ الجميع سالمين!',
@@ -767,7 +767,7 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
                   )
                 : Column(
                     children: [
-                      const Text('💀', style: TextStyle(fontSize: 40)),
+                      const Text('', style: TextStyle(fontSize: 40)),
                       const SizedBox(height: 12),
                       const Text(
                         'قامت المافيا بعملية اغتيال!',
@@ -820,7 +820,7 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
               _startTimer();
               notifier.proceedToDayDiscussion();
             },
-            child: const Text('الانتقال للنقاش الصباحي 🗣️'),
+            child: const Text('الانتقال للنقاش الصباحي '),
           ),
         ],
       ),
@@ -843,7 +843,7 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Text(
-            'الجولة الصباحية - وقت النقاش 🌅',
+            'الجولة الصباحية - وقت النقاش ',
             style: TextStyle(
               color: AppColors.pureWhite,
               fontSize: 22,
@@ -973,7 +973,7 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
               _stopTimer();
               notifier.proceedToDayVoting();
             },
-            child: const Text('بدء التصويت الآن 🗳️'),
+            child: const Text('بدء التصويت الآن '),
           ),
         ],
       ),
@@ -993,7 +993,7 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Text(
-            'التصويت على المشتبه بهم 🗳️',
+            'التصويت على المشتبه بهم ',
             style: TextStyle(
               color: AppColors.pureWhite,
               fontSize: 22,
@@ -1035,7 +1035,7 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
                     _confirmExecution(context, state, notifier, target);
                   }
                 : null,
-            child: const Text('إعدام المشتبه به ⚔️'),
+            child: const Text('إعدام المشتبه به '),
           ),
 
           const SizedBox(height: 8),
@@ -1073,15 +1073,15 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
           const SizedBox(height: 10),
           Center(
             child: Text(
-              isCitizensWin ? '🧑‍🌾' : '💀',
+              isCitizensWin ? '' : '',
               style: const TextStyle(fontSize: 64),
             ),
           ),
           const SizedBox(height: 16),
           Text(
             isCitizensWin
-                ? 'فاز المواطنون الشرفاء! 🏆'
-                : 'انتصرت المافيا وسيطرت على القرية! 🏆',
+                ? 'فاز المواطنون الشرفاء! '
+                : 'انتصرت المافيا وسيطرت على القرية! ',
             textAlign: TextAlign.center,
             style: const TextStyle(
               color: AppColors.pureWhite,
@@ -1129,7 +1129,7 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
                   ),
                   child: Row(
                     children: [
-                      Text(player.role.emoji, style: const TextStyle(fontSize: 20)),
+                      Icon(Icons.security, size: 20, color: AppColors.pureWhite),
                       const SizedBox(width: 10),
                       Expanded(
                         child: Column(
@@ -1188,7 +1188,7 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
               final globalPlayers = ref.read(playersProvider);
               notifier.startNewGame(globalPlayers);
             },
-            child: const Text('لعب جولة أخرى 🔄'),
+            child: const Text('لعب جولة أخرى '),
           ),
           const SizedBox(height: 8),
           OutlinedButton(
@@ -1200,7 +1200,7 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
                 borderRadius: BorderRadius.circular(14),
               ),
             ),
-            child: const Text('العودة للقائمة الرئيسية 🏠'),
+            child: const Text('العودة للقائمة الرئيسية '),
           ),
         ],
       ),
@@ -1321,8 +1321,8 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
               const SizedBox(height: 14),
               Text(
                 isMafia
-                    ? 'أحسنتم! تخلصت القرية من أحد أفراد المافيا! 💀'
-                    : 'للأسف! لقد أعدمتم شخصاً بريئاً من أهل القرية! 🧑‍🌾',
+                    ? 'أحسنتم! تخلصت القرية من أحد أفراد المافيا! '
+                    : 'للأسف! لقد أعدمتم شخصاً بريئاً من أهل القرية! ',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: isMafia ? AppColors.pureWhite : AppColors.danger,
@@ -1339,7 +1339,7 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
                   Navigator.of(ctx).pop();
                   notifier.executePlayer(targetId);
                 },
-                child: const Text('متابعة اللعبة 🌙'),
+                child: const Text('متابعة اللعبة '),
               ),
             ),
           ],

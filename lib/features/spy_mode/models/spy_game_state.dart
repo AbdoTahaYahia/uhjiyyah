@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'spy_locations.dart';
 
 class SpyPlayer {
@@ -38,7 +39,7 @@ class SpyGameState {
   const SpyGameState({
     this.phase = SpyGamePhase.reveal,
     this.players = const [],
-    this.location = const SpyLocation(nameAr: '', emoji: '', rolesAr: []),
+    this.location = const SpyLocation(nameAr: '', icon: Icons.place_outlined, rolesAr: []),
     this.currentRevealIndex = 0,
     this.isCardRevealed = false,
     this.secondsRemaining = 360,

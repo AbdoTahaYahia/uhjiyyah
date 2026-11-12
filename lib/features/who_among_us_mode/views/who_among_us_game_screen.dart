@@ -24,7 +24,7 @@ class WhoAmongUsGameScreen extends ConsumerWidget {
         child: Scaffold(
           backgroundColor: AppColors.background,
           appBar: AppBar(
-            title: const Text('مين فينا 👥'),
+            title: const Text('مين فينا '),
             actions: [
               if (state.phase != WhoAmongUsPhase.leaderboard)
                 IconButton(
@@ -63,7 +63,7 @@ class WhoAmongUsGameScreen extends ConsumerWidget {
                 'سؤال ${state.currentQuestionIndex + 1} من ${state.questionsPool.length}',
                 style: const TextStyle(color: AppColors.textSecondary, fontSize: 14),
               ),
-              const Text('اقرأ السؤال بصوت عالٍ 📢', style: TextStyle(color: AppColors.textSecondary, fontSize: 13)),
+              const Text('اقرأ السؤال بصوت عالٍ ', style: TextStyle(color: AppColors.textSecondary, fontSize: 13)),
             ],
           ),
           const Spacer(),
@@ -78,7 +78,7 @@ class WhoAmongUsGameScreen extends ConsumerWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text('❓', style: TextStyle(fontSize: 48)),
+                const Icon(Icons.help_outline, size: 48, color: AppColors.pureWhite),
                 const SizedBox(height: 20),
                 Text(
                   state.currentQuestion,
@@ -104,7 +104,7 @@ class WhoAmongUsGameScreen extends ConsumerWidget {
                 foregroundColor: AppColors.background,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
-              child: const Text('بدء التصويت السري 🗳️', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              child: const Text('بدء التصويت السري ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             ),
           ),
         ],
@@ -242,7 +242,7 @@ class WhoAmongUsGameScreen extends ConsumerWidget {
             ),
             child: Column(
               children: [
-                const Text('🏆 الشخص المختار 🏆', style: TextStyle(color: AppColors.textSecondary, fontSize: 13)),
+                const Text('الشخص المختار', style: TextStyle(color: AppColors.textSecondary, fontSize: 13)),
                 const SizedBox(height: 8),
                 CircleAvatar(
                   backgroundColor: Color(winnerPlayer.avatarColor),
@@ -326,7 +326,7 @@ class WhoAmongUsGameScreen extends ConsumerWidget {
                 foregroundColor: AppColors.background,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
-              child: const Text('السؤال التالي ⏩', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              child: const Text('السؤال التالي ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             ),
           ),
         ],
@@ -349,7 +349,7 @@ class WhoAmongUsGameScreen extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Text(
-            'لوحة صدارة الأصوات 📊',
+            'لوحة صدارة الأصوات ',
             textAlign: TextAlign.center,
             style: TextStyle(color: AppColors.pureWhite, fontSize: 22, fontWeight: FontWeight.bold),
           ),

@@ -35,7 +35,7 @@ class _CharadesRulesScreenState extends ConsumerState<CharadesRulesScreen> {
       child: Scaffold(
         backgroundColor: AppColors.background,
         appBar: AppBar(
-          title: const Text('تمثيل (بدون كلام) 🎭'),
+          title: const Text('تمثيل (بدون كلام) '),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios_new, size: 20),
             onPressed: () => context.go('/home'),
@@ -200,7 +200,7 @@ class _CharadesRulesScreenState extends ConsumerState<CharadesRulesScreen> {
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     ),
                     child: Text(
-                      players.length < 4 ? 'يلزم 4 لاعبين على الأقل' : 'بدء المسابقة 🎬',
+                      players.length < 4 ? 'يلزم 4 لاعبين على الأقل' : 'بدء المسابقة ',
                       style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
                   ),

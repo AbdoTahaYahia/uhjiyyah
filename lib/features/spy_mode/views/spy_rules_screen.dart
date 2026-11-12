@@ -19,7 +19,7 @@ class SpyRulesScreen extends ConsumerWidget {
       child: Scaffold(
         backgroundColor: AppColors.background,
         appBar: AppBar(
-          title: const Text('لعبة: الجاسوس 🕵️‍♂️'),
+          title: const Text('لعبة: الجاسوس'),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios_new, size: 20),
             onPressed: () => context.go('/home'),
@@ -79,7 +79,7 @@ class SpyRulesScreen extends ConsumerWidget {
                     const SizedBox(height: 20),
 
                     const Text(
-                      'شروط الفوز 🏆:',
+                      'شروط الفوز:',
                       style: TextStyle(color: AppColors.pureWhite, fontSize: 17, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 8),
@@ -131,7 +131,7 @@ class SpyRulesScreen extends ConsumerWidget {
                                   ),
                                 );
                               },
-                        child: const Text('ابدأ اللعبة 🚀'),
+                        child: const Text('ابدأ اللعبة'),
                       ),
                     ),
                   ],

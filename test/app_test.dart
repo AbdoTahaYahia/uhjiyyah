@@ -78,7 +78,7 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    expect(find.text('إعداد طاقم اللعبة 🚀'), findsOneWidget);
+    expect(find.text('إعداد طاقم اللعبة '), findsOneWidget);
     expect(find.text('قائمة اللاعبين'), findsOneWidget);
   });
 }

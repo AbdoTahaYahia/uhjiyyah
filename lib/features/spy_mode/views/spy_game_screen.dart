@@ -41,7 +41,7 @@ class _SpyGameScreenState extends ConsumerState<SpyGameScreen> {
       child: Scaffold(
         backgroundColor: AppColors.background,
         appBar: AppBar(
-          title: const Text('لعبة: الجاسوس 🕵️‍♂️'),
+          title: const Text('لعبة: الجاسوس '),
           leading: IconButton(
             icon: const Icon(Icons.close, color: AppColors.danger),
             tooltip: 'إنهاء اللعبة',
@@ -103,9 +103,10 @@ class _SpyGameScreenState extends ConsumerState<SpyGameScreen> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            player.isSpy ? '🕵️‍♂️' : state.location.emoji,
-                            style: const TextStyle(fontSize: 64),
+                          Icon(
+                            player.isSpy ? Icons.person_search : state.location.icon,
+                            size: 64,
+                            color: AppColors.pureWhite,
                           ),
                           const SizedBox(height: 16),
                           Text(
@@ -156,7 +157,7 @@ class _SpyGameScreenState extends ConsumerState<SpyGameScreen> {
                         ),
                         const SizedBox(height: 20),
                         const Text(
-                          '🔒 تأكد من سرية الشاشة قبل الضغط',
+                          'تأكد من سرية الشاشة قبل الضغط',
                           style: TextStyle(color: AppColors.textMuted, fontSize: 13),
                         ),
                       ],
@@ -174,8 +175,8 @@ class _SpyGameScreenState extends ConsumerState<SpyGameScreen> {
             },
             child: Text(
               !state.isCardRevealed
-                  ? 'كشف الهوية سراً 👁️'
-                  : (isLast ? 'بدء وقت النقاش 🗣️' : 'إخفاء وتمرير للهاتف 🔒'),
+                  ? 'كشف الهوية سراً'
+                  : (isLast ? 'بدء وقت النقاش' : 'إخفاء وتمرير الهاتف'),
             ),
           ),
         ],
@@ -196,7 +197,7 @@ class _SpyGameScreenState extends ConsumerState<SpyGameScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Text(
-            'وقت التحقيق والنقاش 🕵️‍♂️',
+            'وقت التحقيق والنقاش ',
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: AppColors.pureWhite),
           ),
           const SizedBox(height: 4),
@@ -240,7 +241,7 @@ class _SpyGameScreenState extends ConsumerState<SpyGameScreen> {
           // Action Buttons
           ElevatedButton(
             onPressed: notifier.startVoting,
-            child: const Text('اشتباه وتصويت على الجاسوس 🗳️'),
+            child: const Text('اشتباه وتصويت على الجاسوس '),
           ),
           const SizedBox(height: 10),
           OutlinedButton(
@@ -252,7 +253,7 @@ class _SpyGameScreenState extends ConsumerState<SpyGameScreen> {
               side: const BorderSide(color: AppColors.surfaceBorder),
               foregroundColor: AppColors.textSecondary,
             ),
-            child: const Text('أنا الجاسوس وأريد تخمين المكان 🎯'),
+            child: const Text('أنا الجاسوس وأريد تخمين المكان '),
           ),
         ],
       ),
@@ -267,7 +268,7 @@ class _SpyGameScreenState extends ConsumerState<SpyGameScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Text(
-            'من تعتقدون أنه الجاسوس؟ 🗳️',
+            'من تعتقدون أنه الجاسوس؟',
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: AppColors.pureWhite),
           ),
           const SizedBox(height: 6),
@@ -328,7 +329,7 @@ class _SpyGameScreenState extends ConsumerState<SpyGameScreen> {
                     notifier.submitVote(target);
                   }
                 : null,
-            child: const Text('تأكيد الاتهام 🎯'),
+            child: const Text('تأكيد الاتهام '),
           ),
         ],
       ),
@@ -343,7 +344,7 @@ class _SpyGameScreenState extends ConsumerState<SpyGameScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Text(
-            'تم كشف الجاسوس! 🚨',
+            'تم كشف الجاسوس! ',
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: AppColors.danger),
           ),
           const SizedBox(height: 6),
@@ -380,7 +381,7 @@ class _SpyGameScreenState extends ConsumerState<SpyGameScreen> {
                     ),
                     child: Row(
                       children: [
-                        Text(loc.emoji, style: const TextStyle(fontSize: 20)),
+                        Icon(loc.icon, size: 20, color: AppColors.pureWhite),
                         const SizedBox(width: 8),
                         Expanded(
                           child: Text(
@@ -406,7 +407,7 @@ class _SpyGameScreenState extends ConsumerState<SpyGameScreen> {
                     notifier.submitSpyGuess(guess);
                   }
                 : null,
-            child: const Text('تأكيد تخمين الجاسوس 🎯'),
+            child: const Text('تأكيد تخمين الجاسوس '),
           ),
         ],
       ),
@@ -421,7 +422,7 @@ class _SpyGameScreenState extends ConsumerState<SpyGameScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Center(child: Text('🏆', style: TextStyle(fontSize: 64))),
+          const Center(child: Icon(Icons.emoji_events_outlined, size: 64, color: AppColors.pureWhite)),
           const SizedBox(height: 16),
           Text(
             'الفائز: ${state.winner}',
@@ -444,7 +445,7 @@ class _SpyGameScreenState extends ConsumerState<SpyGameScreen> {
             ),
             child: Column(
               children: [
-                Text('المكان السري كان: ${state.location.emoji} ${state.location.nameAr}',
+                Text('المكان السري كان: ${state.location.nameAr}',
                     style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: AppColors.pureWhite)),
                 const SizedBox(height: 6),
                 Text(
@@ -460,7 +461,7 @@ class _SpyGameScreenState extends ConsumerState<SpyGameScreen> {
               final globalPlayers = ref.read(playersProvider);
               notifier.startNewGame(globalPlayers);
             },
-            child: const Text('لعب جولة أخرى 🔄'),
+            child: const Text('لعب جولة أخرى '),
           ),
           const SizedBox(height: 10),
           OutlinedButton(
@@ -469,7 +470,7 @@ class _SpyGameScreenState extends ConsumerState<SpyGameScreen> {
               side: const BorderSide(color: AppColors.surfaceBorder),
               foregroundColor: AppColors.textSecondary,
             ),
-            child: const Text('العودة للقائمة الرئيسية 🏠'),
+            child: const Text('العودة للقائمة الرئيسية '),
           ),
         ],
       ),

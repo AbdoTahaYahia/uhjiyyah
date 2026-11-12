@@ -1,15 +1,17 @@
+import 'package:flutter/material.dart';
+
 class HeadsUpCategory {
   final String id;
   final String nameAr;
   final String descriptionAr;
-  final String emoji;
+  final IconData icon;
   final List<String> words;
 
   const HeadsUpCategory({
     required this.id,
     required this.nameAr,
     required this.descriptionAr,
-    required this.emoji,
+    required this.icon,
     required this.words,
   });
 }
@@ -19,7 +21,7 @@ const List<HeadsUpCategory> kHeadsUpCategories = [
     id: 'movies',
     nameAr: 'أفلام ومسلسلات',
     descriptionAr: 'أشهر الأعمال السينمائية والدرامية',
-    emoji: '🎬',
+    icon: Icons.movie_outlined,
     words: [
       'الفيل الأزرق',
       'إبراهيم الأبيض',
@@ -45,7 +47,7 @@ const List<HeadsUpCategory> kHeadsUpCategories = [
     id: 'food',
     nameAr: 'أكلات ومشروبات',
     descriptionAr: 'أطباق ومأكولات شهيرة ومعروفة',
-    emoji: '🍔',
+    icon: Icons.restaurant_outlined,
     words: [
       'كشري',
       'ملوخية بالأرانب',
@@ -69,7 +71,7 @@ const List<HeadsUpCategory> kHeadsUpCategories = [
     id: 'cartoons',
     nameAr: 'كرتون وأنيميشن',
     descriptionAr: 'شخصيات وأفلام كرتونية محبوبة',
-    emoji: '🦁',
+    icon: Icons.pets_outlined,
     words: [
       'الأسد الملك',
       'توم وجيري',
@@ -92,7 +94,7 @@ const List<HeadsUpCategory> kHeadsUpCategories = [
     id: 'actions',
     nameAr: 'أفعال ومهن',
     descriptionAr: 'حركات وأعمال يومية ومهن',
-    emoji: '⚡',
+    icon: Icons.bolt_outlined,
     words: [
       'دكتور سنان',
       'حلاق رجالي',

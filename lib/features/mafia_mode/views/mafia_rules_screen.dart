@@ -45,7 +45,7 @@ class MafiaRulesScreen extends ConsumerWidget {
                       ),
                       const SizedBox(width: 8),
                       const Text(
-                        'لعبة: المافيا 🕵️',
+                        'لعبة: المافيا ',
                         style: TextStyle(
                           color: AppColors.pureWhite,
                           fontSize: 20,
@@ -81,25 +81,25 @@ class MafiaRulesScreen extends ConsumerWidget {
 
                       _buildSubHeader('الأدوار:').animate().fadeIn(delay: 200.ms),
                       _buildRoleCard(
-                        emoji: '💀',
+                        emoji: '',
                         title: 'المافيا',
                         description:
                             'يوجد عضو مافيا لكل 4 لاعبين، فمثلاً لو كان عدد اللاعبين 8، سيكون هناك 2 من المافيا. يحاول أعضاء المافيا قتل باقي اللاعبين وسيعرف كل عضو مافيا من هم أعضاء المافيا الآخرين.',
                       ).animate().fadeIn(delay: 230.ms).slideY(begin: 0.1, end: 0),
                       _buildRoleCard(
-                        emoji: '🩺',
+                        emoji: '',
                         title: 'الطبيب',
                         description:
                             'الطبيب هو مواطن ويستطيع حماية اللاعب الذي يشك في أنه سيتم قتله من المافيا في الجولة المسائية، أو حماية نفسه إن أراد.',
                       ).animate().fadeIn(delay: 260.ms).slideY(begin: 0.1, end: 0),
                       _buildRoleCard(
-                        emoji: '🕵️',
+                        emoji: '',
                         title: 'المحقق',
                         description:
                             'المحقق هو مواطن ويستطيع سراً التحقق من هوية أحد اللاعبين خلال الجولات المسائية.',
                       ).animate().fadeIn(delay: 290.ms).slideY(begin: 0.1, end: 0),
                       _buildRoleCard(
-                        emoji: '🧑‍🌾',
+                        emoji: '',
                         title: 'المواطن',
                         description:
                             'يحاول المواطن البقاء على قيد الحياة والتصويت لقتل أعضاء المافيا في الجولات الصباحية.',
@@ -113,7 +113,7 @@ class MafiaRulesScreen extends ConsumerWidget {
                       ),
                       const SizedBox(height: 20),
 
-                      _buildSubHeader('الجولات المسائية 🌃:').animate().fadeIn(delay: 400.ms),
+                      _buildSubHeader('الجولات المسائية :').animate().fadeIn(delay: 400.ms),
                       _buildBullet(
                         'تبدأ اللعبة بالجولة المسائية وفي هذه الجولة يقوم أعضاء المافيا بقتل شخصية من المواطنين (مواطنين، الطبيب أو المحقق).',
                       ),
@@ -131,7 +131,7 @@ class MafiaRulesScreen extends ConsumerWidget {
                       ),
                       const SizedBox(height: 20),
 
-                      _buildSubHeader('الجولات الصباحية 🌅:').animate().fadeIn(delay: 450.ms),
+                      _buildSubHeader('الجولات الصباحية :').animate().fadeIn(delay: 450.ms),
                       _buildBullet(
                         'قبل بدء الجولة الصباحية يطلب من الجميع أن يتناقشوا وأن يتبادلوا التهم ومحاولة معرفة من هم المافيا بينهم. كل ما عليكم هو إقناع باقي اللاعبين بشخصيتكم بدون كشفها.',
                       ),
@@ -139,19 +139,19 @@ class MafiaRulesScreen extends ConsumerWidget {
                         'بعد انتهاء النقاش يطلب من الجميع أن يقوموا بالتصويت لقتل شخصية ما.',
                       ),
                       _buildBullet(
-                        'يتم الإعلان عن الشخصية التي تم قتلها ويتم إخراجها من اللعبة 💀.',
+                        'يتم الإعلان عن الشخصية التي تم قتلها ويتم إخراجها من اللعبة .',
                       ),
                       _buildBullet(
                         'بعد الجولة الصباحية تنتقل اللعبة للجولة المسائية مرة أخرى وتستمر حتى انتهاء أعضاء أحد الفريقين.',
                       ),
                       const SizedBox(height: 20),
 
-                      _buildSubHeader('نهاية اللعبة 🏆:').animate().fadeIn(delay: 500.ms),
+                      _buildSubHeader('نهاية اللعبة :').animate().fadeIn(delay: 500.ms),
                       _buildParagraph(
                         'تنتهي اللعبة عندما يتم قتل جميع أفراد المافيا (فوز المواطنين) أو عندما يتساوى عدد المافيا مع عدد المواطنين (فوز المافيا).',
                       ),
                       const SizedBox(height: 12),
-                      _buildSubHeader('النقاط 🥇:').animate().fadeIn(delay: 530.ms),
+                      _buildSubHeader('النقاط :').animate().fadeIn(delay: 530.ms),
                       _buildParagraph(
                         'يحصل الفريق الذي يفوز على 70 نقطة لكل لاعب متبقي على قيد الحياة في الفريق.',
                       ),
@@ -253,7 +253,7 @@ class MafiaRulesScreen extends ConsumerWidget {
                                   );
                                 },
                           child: const Text(
-                            'ابدأ اللعبة 🚀',
+                            'ابدأ اللعبة ',
                             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                         ),

@@ -24,7 +24,7 @@ class OutOfContextGameScreen extends ConsumerWidget {
         child: Scaffold(
           backgroundColor: AppColors.background,
           appBar: AppBar(
-            title: const Text('خارج السياق 🎭'),
+            title: const Text('خارج السياق '),
             leading: IconButton(
               icon: const Icon(Icons.close, color: AppColors.danger),
               onPressed: () => _showExitDialog(context, ref),
@@ -105,7 +105,7 @@ class OutOfContextGameScreen extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            currentPlayer.isOut ? '🎭 خارج السياق!' : 'الكلمة السرية:',
+                            currentPlayer.isOut ? ' خارج السياق!' : 'الكلمة السرية:',
                             style: TextStyle(
                               color: currentPlayer.isOut ? AppColors.pureWhite : AppColors.textSecondary,
                               fontSize: 16,
@@ -158,7 +158,7 @@ class OutOfContextGameScreen extends ConsumerWidget {
                           ),
                           const SizedBox(height: 8),
                           const Text(
-                            'المس الكرت لرؤية دورك سراً 🔒',
+                            'المس الكرت لرؤية دورك سراً ',
                             style: TextStyle(color: AppColors.textSecondary, fontSize: 14),
                           ),
                         ],
@@ -182,7 +182,7 @@ class OutOfContextGameScreen extends ConsumerWidget {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
               child: Text(
-                isLastPlayer ? 'بدء النقاش ⏳' : 'التالي (إخفاء البطاقة)',
+                isLastPlayer ? 'بدء النقاش ' : 'التالي (إخفاء البطاقة)',
                 style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
             ),
@@ -203,7 +203,7 @@ class OutOfContextGameScreen extends ConsumerWidget {
       child: Column(
         children: [
           const Text(
-            'فترة النقاش والأسئلة 🗣️',
+            'فترة النقاش والأسئلة ',
             style: TextStyle(color: AppColors.pureWhite, fontSize: 22, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
@@ -267,7 +267,7 @@ class OutOfContextGameScreen extends ConsumerWidget {
                 foregroundColor: AppColors.background,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
-              child: const Text('جاهزون للتصويت والاتهام ⚖️', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              child: const Text('جاهزون للتصويت والاتهام ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             ),
           ),
         ],
@@ -360,7 +360,7 @@ class OutOfContextGameScreen extends ConsumerWidget {
             child: Column(
               children: [
                 const Text(
-                  '🎯 كشفتم المتسلل!',
+                  ' كشفتم المتسلل!',
                   style: TextStyle(color: AppColors.pureWhite, fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 6),
@@ -433,7 +433,7 @@ class OutOfContextGameScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 20),
           Text(
-            isCiviliansWin ? 'فاز أهل السياق! 🏆' : 'فاز المتسلل! 🎭',
+            isCiviliansWin ? 'فاز أهل السياق! ' : 'فاز المتسلل! ',
             style: const TextStyle(color: AppColors.pureWhite, fontSize: 26, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 12),
@@ -474,7 +474,7 @@ class OutOfContextGameScreen extends ConsumerWidget {
                 foregroundColor: AppColors.background,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
-              child: const Text('جولة جديدة 🔄', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              child: const Text('جولة جديدة ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             ),
           ),
           const SizedBox(height: 12),

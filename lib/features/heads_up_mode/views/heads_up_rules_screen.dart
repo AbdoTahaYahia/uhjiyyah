@@ -20,7 +20,7 @@ class HeadsUpRulesScreen extends ConsumerWidget {
       child: Scaffold(
         backgroundColor: AppColors.background,
         appBar: AppBar(
-          title: const Text('احزر الكلمة (Heads Up) 📱'),
+          title: const Text('احزر الكلمة (Heads Up)'),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios_new, size: 20),
             onPressed: () => context.go('/home'),
@@ -83,7 +83,7 @@ class HeadsUpRulesScreen extends ConsumerWidget {
                             ),
                             child: Row(
                               children: [
-                                Text(category.emoji, style: const TextStyle(fontSize: 32)),
+                                Icon(category.icon, size: 32, color: AppColors.pureWhite),
                                 const SizedBox(width: 16),
                                 Expanded(
                                   child: Column(

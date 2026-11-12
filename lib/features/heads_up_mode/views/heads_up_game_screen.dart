@@ -24,7 +24,7 @@ class HeadsUpGameScreen extends ConsumerWidget {
         child: Scaffold(
           backgroundColor: AppColors.background,
           appBar: AppBar(
-            title: Text('${state.selectedCategory.emoji} ${state.selectedCategory.nameAr}'),
+            title: Text(state.selectedCategory.nameAr),
             leading: IconButton(
               icon: const Icon(Icons.close, color: AppColors.danger),
               onPressed: () => _showExitDialog(context, ref),
@@ -51,9 +51,10 @@ class HeadsUpGameScreen extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Spacer(),
-          Text(
-            state.selectedCategory.emoji,
-            style: const TextStyle(fontSize: 72),
+          Icon(
+            state.selectedCategory.icon,
+            size: 72,
+            color: AppColors.pureWhite,
           ),
           const SizedBox(height: 20),
           Text(
@@ -77,7 +78,7 @@ class HeadsUpGameScreen extends ConsumerWidget {
                 foregroundColor: AppColors.background,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
               ),
-              child: const Text('ابدأ العداد الآن (60 ثانية) ⏱️', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              child: const Text('ابدأ العداد الآن (60 ثانية)', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             ),
           ),
         ],
@@ -178,7 +179,7 @@ class HeadsUpGameScreen extends ConsumerWidget {
                       foregroundColor: AppColors.textPrimary,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                     ),
-                    child: const Text('تخطي ⏩', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    child: const Text('تخطي', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   ),
                 ),
               ),
@@ -193,7 +194,7 @@ class HeadsUpGameScreen extends ConsumerWidget {
                       foregroundColor: AppColors.background,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                     ),
-                    child: const Text('صح (+1) ✨', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                    child: const Text('صح (+1)', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                   ),
                 ),
               ),
@@ -221,7 +222,7 @@ class HeadsUpGameScreen extends ConsumerWidget {
             child: Column(
               children: [
                 const Text(
-                  'انتهى الوقت! 🎉',
+                  'انتهى الوقت!',
                   style: TextStyle(color: AppColors.pureWhite, fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
@@ -276,7 +277,7 @@ class HeadsUpGameScreen extends ConsumerWidget {
                 foregroundColor: AppColors.background,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
-              child: const Text('العب مرة أخرى 🔄', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              child: const Text('العب مرة أخرى', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             ),
           ),
           const SizedBox(height: 8),

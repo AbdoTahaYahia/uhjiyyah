@@ -74,7 +74,7 @@ class _PlayersSetupScreenState extends ConsumerState<PlayersSetupScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text(
-                        'إعداد طاقم اللعبة 🚀',
+                        'إعداد طاقم اللعبة ',
                         style: TextStyle(
                           color: AppColors.pureWhite,
                           fontSize: 22,
@@ -315,7 +315,7 @@ class _PlayersSetupScreenState extends ConsumerState<PlayersSetupScreen> {
                       onPressed: canStart ? () => context.go('/home') : null,
                       child: Text(
                         canStart
-                            ? 'الانطلاق للألعاب (${players.length}) 🚀'
+                            ? 'الانطلاق للألعاب (${players.length}) '
                             : 'أضف لاعبين على الأقل للبدء',
                       ),
                     ),
