@@ -128,16 +128,29 @@ void main() {
     expect(resultState.totalVotes[targetId], 3);
   });
 
-  test('Charades mode tracks team turns and scores', () {
-    final container = ProviderContainer();
+  test('Charades mode tracks team turns, players, and alternating actors', () {
+    final container = createContainerWithPlayers(['أحمد', 'سارة', 'محمد', 'منى']);
     addTearDown(container.dispose);
 
+    final allPlayers = container.read(playersProvider);
+    final teamA = [allPlayers[0], allPlayers[1]]; // أحمد، سارة
+    final teamB = [allPlayers[2], allPlayers[3]]; // محمد، منى
+
     final notifier = container.read(charadesGameProvider.notifier);
-    notifier.setupTeams(teamAName: 'الصقور', teamBName: 'النسور', totalRounds: 3);
+    notifier.setupTeams(
+      teamAName: 'الصقور',
+      teamBName: 'النسور',
+      teamAPlayers: teamA,
+      teamBPlayers: teamB,
+      totalRounds: 3,
+    );
 
     final state = container.read(charadesGameProvider);
     expect(state.phase, CharadesPhase.roundReady);
     expect(state.currentTeam, CharadesTeam.teamA);
+    expect(state.currentActor?.name, 'أحمد');
+    expect(state.currentTeammates.length, 1);
+    expect(state.currentTeammates.first.name, 'سارة');
 
     notifier.startTurn();
     expect(container.read(charadesGameProvider).phase, CharadesPhase.acting);
@@ -146,8 +159,12 @@ void main() {
     expect(container.read(charadesGameProvider).phase, CharadesPhase.roundSummary);
     expect(container.read(charadesGameProvider).teamAScore, 1);
 
+    // Switch to Team B
     notifier.nextTurn();
-    expect(container.read(charadesGameProvider).currentTeam, CharadesTeam.teamB);
+    final stateTeamB = container.read(charadesGameProvider);
+    expect(stateTeamB.currentTeam, CharadesTeam.teamB);
+    expect(stateTeamB.currentActor?.name, 'محمد');
+    expect(stateTeamB.currentTeammates.first.name, 'منى');
   });
 
   test('Wink mode assigns detective and winker, handles elimination and accusations', () {

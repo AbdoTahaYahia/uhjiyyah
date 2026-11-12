@@ -24,7 +24,7 @@ class CharadesGameScreen extends ConsumerWidget {
         child: Scaffold(
           backgroundColor: AppColors.background,
           appBar: AppBar(
-            title: const Text('تمثيل (بدون كلام) '),
+            title: const Text('تمثيل (بدون كلام)'),
             leading: IconButton(
               icon: const Icon(Icons.close, color: AppColors.danger),
               onPressed: () => _showExitDialog(context, ref),
@@ -46,6 +46,9 @@ class CharadesGameScreen extends ConsumerWidget {
 
   // ── 1. Round Ready View ────────────────────────────────────────────────────
   Widget _buildRoundReadyView(BuildContext context, WidgetRef ref, CharadesGameState state) {
+    final actor = state.currentActor;
+    final teammates = state.currentTeammates;
+
     return Padding(
       padding: const EdgeInsets.all(24.0),
       child: Column(
@@ -55,7 +58,7 @@ class CharadesGameScreen extends ConsumerWidget {
           const Spacer(),
 
           Container(
-            padding: const EdgeInsets.all(28),
+            padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
               color: AppColors.surface,
               borderRadius: BorderRadius.circular(20),
@@ -67,15 +70,64 @@ class CharadesGameScreen extends ConsumerWidget {
                   'الجولة ${state.currentRound} من ${state.totalRounds}',
                   style: const TextStyle(color: AppColors.textSecondary, fontSize: 14),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 8),
                 Text(
                   'الدور على: ${state.currentActiveTeamName}',
                   textAlign: TextAlign.center,
                   style: const TextStyle(color: AppColors.pureWhite, fontSize: 24, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 16),
+
+                // Specific Actor display if teams were configured with players
+                if (actor != null) ...[
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    decoration: BoxDecoration(
+                      color: AppColors.background,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: AppColors.pureWhite, width: 1.2),
+                    ),
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: Color(actor.avatarColor),
+                          radius: 18,
+                          child: Text(
+                            actor.name.characters.first,
+                            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text('الممثل في هذه الجولة:', style: TextStyle(color: AppColors.textSecondary, fontSize: 12)),
+                              Text(
+                                actor.name,
+                                style: const TextStyle(color: AppColors.pureWhite, fontSize: 17, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Icon(Icons.theater_comedy, color: AppColors.pureWhite, size: 24),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                ],
+
+                if (teammates.isNotEmpty) ...[
+                  Text(
+                    'الذين يخمنون في الفريق: ${teammates.map((t) => t.name).join("، ")}',
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(color: AppColors.textSecondary, fontSize: 13),
+                  ),
+                  const SizedBox(height: 12),
+                ],
+
                 const Text(
-                  'سلّم الهاتف للممثل من هذا الفريق ليطّلع على الكلمة سراً.\nأمامك 90 ثانية لتمثيلها بدون كلام!',
+                  'سلّم الهاتف للممثل ليطّلع على الكلمة سراً.\nأمامك 90 ثانية لتمثيلها بدون كلام!',
                   textAlign: TextAlign.center,
                   style: TextStyle(color: AppColors.textSecondary, fontSize: 14, height: 1.4),
                 ),
@@ -94,7 +146,10 @@ class CharadesGameScreen extends ConsumerWidget {
                 foregroundColor: AppColors.background,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
-              child: const Text('أنا الممثل، أظهر الكلمة وابدأ ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              child: Text(
+                actor != null ? 'أنا ${actor.name}، أظهر الكلمة وابدأ' : 'أنا الممثل، أظهر الكلمة وابدأ',
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
             ),
           ),
         ],
@@ -104,6 +159,8 @@ class CharadesGameScreen extends ConsumerWidget {
 
   // ── 2. Acting View ─────────────────────────────────────────────────────────
   Widget _buildActingView(BuildContext context, WidgetRef ref, CharadesGameState state) {
+    final actor = state.currentActor;
+
     return Column(
       children: [
         // Score Header & Timer
@@ -119,9 +176,17 @@ class CharadesGameScreen extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(10),
                   border: Border.all(color: AppColors.surfaceBorder),
                 ),
-                child: Text(
-                  state.currentActiveTeamName,
-                  style: const TextStyle(color: AppColors.pureWhite, fontWeight: FontWeight.bold),
+                child: Row(
+                  children: [
+                    Text(
+                      state.currentActiveTeamName,
+                      style: const TextStyle(color: AppColors.pureWhite, fontWeight: FontWeight.bold),
+                    ),
+                    if (actor != null) ...[
+                      const Text(' | ', style: TextStyle(color: AppColors.textMuted)),
+                      Text(actor.name, style: const TextStyle(color: AppColors.textSecondary, fontSize: 13)),
+                    ],
+                  ],
                 ),
               ),
               Container(
@@ -180,7 +245,7 @@ class CharadesGameScreen extends ConsumerWidget {
                   ),
                   const SizedBox(height: 20),
                   const Text(
-                    ' ممنوع الكلام أو الإشارة للحروف!',
+                    'ممنوع الكلام أو الإشارة للحروف!',
                     style: TextStyle(color: AppColors.textSecondary, fontSize: 13),
                   ),
                 ],
@@ -204,7 +269,7 @@ class CharadesGameScreen extends ConsumerWidget {
                       foregroundColor: AppColors.textPrimary,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     ),
-                    child: const Text('لم ينجح / تخطي ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    child: const Text('لم ينجح / تخطي', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                   ),
                 ),
               ),
@@ -219,7 +284,7 @@ class CharadesGameScreen extends ConsumerWidget {
                       foregroundColor: AppColors.background,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     ),
-                    child: const Text('عرفوها! (+1) ', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    child: const Text('عرفوها! (+1)', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                   ),
                 ),
               ),
@@ -248,7 +313,7 @@ class CharadesGameScreen extends ConsumerWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            success ? 'أحسنتم! نقطة إضافية ' : 'حظ أوفر في الجولة القادمة!',
+            success ? 'أحسنتم! نقطة إضافية' : 'حظ أوفر في الجولة القادمة!',
             style: const TextStyle(color: AppColors.pureWhite, fontSize: 24, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
@@ -268,7 +333,7 @@ class CharadesGameScreen extends ConsumerWidget {
                 foregroundColor: AppColors.background,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
-              child: const Text('الدور التالي ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              child: const Text('الدور التالي', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             ),
           ),
         ],
@@ -280,11 +345,11 @@ class CharadesGameScreen extends ConsumerWidget {
   Widget _buildGameOverView(BuildContext context, WidgetRef ref, CharadesGameState state) {
     String winnerText;
     if (state.teamAScore > state.teamBScore) {
-      winnerText = 'الفائز: ${state.teamAName} ';
+      winnerText = 'الفائز: ${state.teamAName}';
     } else if (state.teamBScore > state.teamAScore) {
-      winnerText = 'الفائز: ${state.teamBName} ';
+      winnerText = 'الفائز: ${state.teamBName}';
     } else {
-      winnerText = 'تعادل بين الفريقين! ';
+      winnerText = 'تعادل بين الفريقين!';
     }
 
     return Padding(
@@ -312,6 +377,8 @@ class CharadesGameScreen extends ConsumerWidget {
                 ref.read(charadesGameProvider.notifier).setupTeams(
                       teamAName: state.teamAName,
                       teamBName: state.teamBName,
+                      teamAPlayers: state.teamAPlayers,
+                      teamBPlayers: state.teamBPlayers,
                       totalRounds: state.totalRounds,
                     );
               },
@@ -320,7 +387,7 @@ class CharadesGameScreen extends ConsumerWidget {
                 foregroundColor: AppColors.background,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               ),
-              child: const Text('مباراة جديدة ', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              child: const Text('مباراة جديدة', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             ),
           ),
           const SizedBox(height: 10),
