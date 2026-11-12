@@ -25,6 +25,8 @@ class _OnlineLobbyScreenState extends ConsumerState<OnlineLobbyScreen> {
   void dispose() {
     _codeController.dispose();
     _nameController.dispose();
+    // Stop any running search or room operation when leaving lobby
+    ref.read(onlineRoomProvider.notifier).cancelLoading();
     super.dispose();
   }
 
@@ -41,15 +43,23 @@ class _OnlineLobbyScreenState extends ConsumerState<OnlineLobbyScreen> {
 
     return Directionality(
       textDirection: TextDirection.rtl,
-      child: Scaffold(
-        backgroundColor: AppColors.background,
-        appBar: AppBar(
-          title: const Text('اللعب الجماعي أونلاين'),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios_new, size: 20),
-            onPressed: () => context.go('/home'),
+      child: PopScope(
+        canPop: true,
+        onPopInvokedWithResult: (didPop, result) {
+          ref.read(onlineRoomProvider.notifier).cancelLoading();
+        },
+        child: Scaffold(
+          backgroundColor: AppColors.background,
+          appBar: AppBar(
+            title: const Text('اللعب الجماعي أونلاين'),
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back_ios_new, size: 20),
+              onPressed: () {
+                ref.read(onlineRoomProvider.notifier).cancelLoading();
+                context.go('/home');
+              },
+            ),
           ),
-        ),
         body: SafeArea(
           child: ListView(
             padding: const EdgeInsets.all(24),
@@ -191,6 +201,67 @@ class _OnlineLobbyScreenState extends ConsumerState<OnlineLobbyScreen> {
                   ),
                 ),
                 const SizedBox(height: 16),
+              ],
+
+              // Active Loading / Searching Status Card with Cancel button
+              if (roomState.isLoading) ...[
+                Container(
+                  padding: const EdgeInsets.all(18),
+                  decoration: BoxDecoration(
+                    color: AppColors.surface,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: AppColors.pureWhite, width: 1.5),
+                  ),
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        width: 32,
+                        height: 32,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 3,
+                          valueColor: AlwaysStoppedAnimation<Color>(AppColors.pureWhite),
+                        ),
+                      ),
+                      const SizedBox(height: 14),
+                      const Text(
+                        'جاري الاتصال والبحث عن غرفة...',
+                        style: TextStyle(
+                          color: AppColors.pureWhite,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      const Text(
+                        'جاري الاتصال بالسحاب. يمكنك الإلغاء في أي وقت:',
+                        style: TextStyle(color: AppColors.textSecondary, fontSize: 12),
+                      ),
+                      const SizedBox(height: 14),
+                      SizedBox(
+                        height: 42,
+                        child: OutlinedButton.icon(
+                          onPressed: () {
+                            ref.read(onlineRoomProvider.notifier).cancelLoading();
+                          },
+                          icon: const Icon(Icons.close, size: 18, color: AppColors.danger),
+                          label: const Text(
+                            'إلغاء البحث والانتظار',
+                            style: TextStyle(
+                              color: AppColors.danger,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14,
+                            ),
+                          ),
+                          style: OutlinedButton.styleFrom(
+                            side: const BorderSide(color: AppColors.danger),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
               ],
 
               // Create Room Option
@@ -413,6 +484,7 @@ class _OnlineLobbyScreenState extends ConsumerState<OnlineLobbyScreen> {
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 }

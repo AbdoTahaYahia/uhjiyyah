@@ -163,6 +163,11 @@ class OnlineRoomNotifier extends Notifier<OnlineRoomState> {
     }
   }
 
+  void cancelLoading() {
+    _roomSubscription?.cancel();
+    state = state.copyWith(isLoading: false, errorMessage: null);
+  }
+
   void _listenToRoom(String code) {
     _roomSubscription?.cancel();
     _roomSubscription = _service.streamRoom(code).listen((updatedRoom) {

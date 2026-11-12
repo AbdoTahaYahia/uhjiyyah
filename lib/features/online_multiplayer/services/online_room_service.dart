@@ -9,6 +9,8 @@ class OnlineRoomService {
   factory OnlineRoomService() => _instance;
   OnlineRoomService._internal();
 
+  static const _timeout = Duration(milliseconds: 2000);
+
   FirebaseFirestore? get _firestore {
     try {
       if (Firebase.apps.isNotEmpty) {
@@ -52,7 +54,7 @@ class OnlineRoomService {
     final db = _firestore;
     if (db != null) {
       try {
-        await db.collection('rooms').doc(code).set(room.toMap());
+        await db.collection('rooms').doc(code).set(room.toMap()).timeout(_timeout);
         return room;
       } catch (_) {}
     }
@@ -74,7 +76,7 @@ class OnlineRoomService {
     if (db != null) {
       try {
         final docRef = db.collection('rooms').doc(normalizedCode);
-        final doc = await docRef.get();
+        final doc = await docRef.get().timeout(_timeout);
         if (!doc.exists) return null;
 
         final currentRoom = OnlineRoom.fromMap(doc.data()!);
@@ -94,7 +96,9 @@ class OnlineRoomService {
         }
 
         final updatedRoom = currentRoom.copyWith(players: updatedPlayers);
-        await docRef.update({'players': updatedPlayers.map((p) => p.toMap()).toList()});
+        await docRef
+            .update({'players': updatedPlayers.map((p) => p.toMap()).toList()})
+            .timeout(_timeout);
         return updatedRoom;
       } catch (_) {}
     }
@@ -125,7 +129,8 @@ class OnlineRoomService {
             .collection('rooms')
             .where('status', isEqualTo: 'waiting')
             .limit(10)
-            .get();
+            .get()
+            .timeout(_timeout);
 
         for (final doc in query.docs) {
           final room = OnlineRoom.fromMap(doc.data());
@@ -182,7 +187,10 @@ class OnlineRoomService {
 
     if (db != null) {
       try {
-        await db.collection('rooms').doc(normalizedCode).update({'gameModeId': gameModeId});
+        await db
+            .collection('rooms')
+            .doc(normalizedCode)
+            .update({'gameModeId': gameModeId}).timeout(_timeout);
         return;
       } catch (_) {}
     }
@@ -202,13 +210,15 @@ class OnlineRoomService {
     if (db != null) {
       try {
         final docRef = db.collection('rooms').doc(normalizedCode);
-        final doc = await docRef.get();
+        final doc = await docRef.get().timeout(_timeout);
         if (doc.exists) {
           final room = OnlineRoom.fromMap(doc.data()!);
           final updated = room.players.map((p) {
             return p.id == playerId ? p.copyWith(isReady: isReady) : p;
           }).toList();
-          await docRef.update({'players': updated.map((p) => p.toMap()).toList()});
+          await docRef
+              .update({'players': updated.map((p) => p.toMap()).toList()})
+              .timeout(_timeout);
           return;
         }
       } catch (_) {}
@@ -235,7 +245,7 @@ class OnlineRoomService {
         await db.collection('rooms').doc(normalizedCode).update({
           'status': 'in_game',
           'gameState': initialGameState,
-        });
+        }).timeout(_timeout);
         return;
       } catch (_) {}
     }
@@ -303,7 +313,7 @@ class OnlineRoomService {
         final docRef = db.collection('rooms').doc(normalizedCode);
         await docRef.update({
           'messages': FieldValue.arrayUnion([message.toMap()]),
-        });
+        }).timeout(_timeout);
         return;
       } catch (_) {}
     }
