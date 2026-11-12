@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "759413842322",
+    "project_id": "uhjiyyah-app",
+    "storage_bucket": "uhjiyyah-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:759413842322:android:a70e9138b84897cfffa14b",
+        "android_client_info": {
+          "package_name": "com.uhjiyyah.uhjiyyah"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuftisVMx7Fbufm4qIGp2o50uiWxzyTvc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

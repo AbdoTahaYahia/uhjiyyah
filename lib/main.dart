@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -5,13 +6,20 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uhjiyyah/core/providers/players_provider.dart';
 import 'package:uhjiyyah/core/router/app_router.dart';
 import 'package:uhjiyyah/core/theme/app_theme.dart';
+import 'package:uhjiyyah/firebase_options.dart';
 
 /// أُحْجِيَّة — Main entry point for the local multiplayer party game hub.
 ///
-/// Pre-initializes [SharedPreferences] before [runApp] to guarantee
-/// instant, synchronous restoration of the player roster on launch.
+/// Pre-initializes [SharedPreferences] and [Firebase] before [runApp].
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  } catch (e) {
+    debugPrint('Firebase initialization skipped or offline: $e');
+  }
   final sharedPreferences = await SharedPreferences.getInstance();
 
   runApp(
