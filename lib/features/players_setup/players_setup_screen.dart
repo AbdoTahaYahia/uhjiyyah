@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:uhjiyyah/core/providers/players_provider.dart';
 import 'package:uhjiyyah/core/theme/app_theme.dart';
+import 'package:uhjiyyah/core/widgets/player_avatar.dart';
 
 /// Space-age player roster setup screen.
 ///
@@ -238,9 +239,6 @@ class _PlayersSetupScreenState extends ConsumerState<PlayersSetupScreen> {
                             separatorBuilder: (context, index) => const SizedBox(height: 8),
                             itemBuilder: (context, index) {
                               final player = players[index];
-                              final initial = player.name.isNotEmpty
-                                  ? player.name.characters.first
-                                  : '?';
 
                               return Container(
                                 padding: const EdgeInsets.symmetric(
@@ -254,17 +252,10 @@ class _PlayersSetupScreenState extends ConsumerState<PlayersSetupScreen> {
                                 ),
                                 child: Row(
                                   children: [
-                                    CircleAvatar(
+                                    PlayerAvatar(
+                                      name: player.name,
                                       radius: 20,
-                                      backgroundColor: Color(player.avatarColor),
-                                      child: Text(
-                                        initial,
-                                        style: const TextStyle(
-                                          color: AppColors.pureWhite,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16,
-                                        ),
-                                      ),
+                                      showInitialBadge: true,
                                     ),
                                     const SizedBox(width: 14),
                                     Expanded(

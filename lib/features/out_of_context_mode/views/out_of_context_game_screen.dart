@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:uhjiyyah/core/theme/app_theme.dart';
+import 'package:uhjiyyah/core/widgets/player_avatar.dart';
 import '../models/out_of_context_game_state.dart';
 import '../providers/out_of_context_game_provider.dart';
 
@@ -143,13 +144,10 @@ class OutOfContextGameScreen extends ConsumerWidget {
                     : Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          CircleAvatar(
+                          PlayerAvatar(
+                            name: currentPlayer.name,
                             radius: 36,
-                            backgroundColor: Color(currentPlayer.avatarColor),
-                            child: Text(
-                              currentPlayer.name.substring(0, 1),
-                              style: const TextStyle(fontSize: 26, color: Colors.white, fontWeight: FontWeight.bold),
-                            ),
+                            showInitialBadge: true,
                           ),
                           const SizedBox(height: 18),
                           Text(
@@ -312,13 +310,10 @@ class OutOfContextGameScreen extends ConsumerWidget {
                     ),
                     child: Row(
                       children: [
-                        CircleAvatar(
-                          backgroundColor: Color(player.avatarColor),
+                        PlayerAvatar(
+                          name: player.name,
                           radius: 18,
-                          child: Text(
-                            player.name.substring(0, 1),
-                            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                          ),
+                          showInitialBadge: true,
                         ),
                         const SizedBox(width: 14),
                         Expanded(

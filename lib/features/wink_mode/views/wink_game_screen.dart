@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:uhjiyyah/core/theme/app_theme.dart';
+import 'package:uhjiyyah/core/widgets/player_avatar.dart';
 import '../models/wink_game_state.dart';
 import '../providers/wink_game_provider.dart';
 
@@ -139,13 +140,10 @@ class WinkGameScreen extends ConsumerWidget {
                     : Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          CircleAvatar(
+                          PlayerAvatar(
+                            name: currentPlayer.name,
                             radius: 36,
-                            backgroundColor: Color(currentPlayer.avatarColor),
-                            child: Text(
-                              currentPlayer.name.substring(0, 1),
-                              style: const TextStyle(fontSize: 26, color: Colors.white, fontWeight: FontWeight.bold),
-                            ),
+                            showInitialBadge: true,
                           ),
                           const SizedBox(height: 18),
                           Text(
@@ -251,13 +249,9 @@ class WinkGameScreen extends ConsumerWidget {
                   ),
                   child: Row(
                     children: [
-                      CircleAvatar(
-                        backgroundColor: player.isAlive ? Color(player.avatarColor) : Colors.grey,
+                      PlayerAvatar(
+                        name: player.name,
                         radius: 16,
-                        child: Text(
-                          player.name.substring(0, 1),
-                          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
                       ),
                       const SizedBox(width: 12),
                       Expanded(
@@ -367,13 +361,10 @@ class WinkGameScreen extends ConsumerWidget {
                     ),
                     child: Row(
                       children: [
-                        CircleAvatar(
-                          backgroundColor: Color(candidate.avatarColor),
+                        PlayerAvatar(
+                          name: candidate.name,
                           radius: 18,
-                          child: Text(
-                            candidate.name.substring(0, 1),
-                            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                          ),
+                          showInitialBadge: true,
                         ),
                         const SizedBox(width: 14),
                         Expanded(

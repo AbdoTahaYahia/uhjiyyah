@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:uhjiyyah/core/providers/players_provider.dart';
 import 'package:uhjiyyah/core/theme/app_theme.dart';
+import 'package:uhjiyyah/core/widgets/player_avatar.dart';
 import '../models/spy_game_state.dart';
 import '../models/spy_locations.dart';
 import '../providers/spy_game_provider.dart';
@@ -140,13 +141,10 @@ class _SpyGameScreenState extends ConsumerState<SpyGameScreen> {
                   : Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CircleAvatar(
+                        PlayerAvatar(
+                          name: player.name,
                           radius: 36,
-                          backgroundColor: Color(player.avatarColor),
-                          child: Text(
-                            player.name.characters.first,
-                            style: const TextStyle(fontSize: 28, color: AppColors.pureWhite, fontWeight: FontWeight.bold),
-                          ),
+                          showInitialBadge: true,
                         ),
                         const SizedBox(height: 16),
                         const Text('مرر الهاتف إلى:', style: TextStyle(color: AppColors.textSecondary, fontSize: 15)),
@@ -300,10 +298,10 @@ class _SpyGameScreenState extends ConsumerState<SpyGameScreen> {
                     ),
                     child: Row(
                       children: [
-                        CircleAvatar(
+                        PlayerAvatar(
+                          name: player.name,
                           radius: 18,
-                          backgroundColor: Color(player.avatarColor),
-                          child: Text(player.name.characters.first, style: const TextStyle(color: AppColors.pureWhite)),
+                          showInitialBadge: true,
                         ),
                         const SizedBox(width: 14),
                         Expanded(

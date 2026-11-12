@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:uhjiyyah/core/providers/players_provider.dart';
 import 'package:uhjiyyah/core/theme/app_theme.dart';
+import 'package:uhjiyyah/core/widgets/player_avatar.dart';
 import '../models/mafia_game_state.dart';
 import '../models/mafia_player.dart';
 import '../models/mafia_role.dart';
@@ -259,19 +260,10 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
                   : Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CircleAvatar(
+                        PlayerAvatar(
+                          name: player.name,
                           radius: 36,
-                          backgroundColor: Color(player.avatarColor),
-                          child: Text(
-                            player.name.isNotEmpty
-                                ? player.name.characters.first
-                                : '?',
-                            style: const TextStyle(
-                              color: AppColors.pureWhite,
-                              fontSize: 28,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
+                          showInitialBadge: true,
                         ),
                         const SizedBox(height: 18),
                         const Text(
@@ -394,17 +386,10 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CircleAvatar(
+                    PlayerAvatar(
+                      name: player.name,
                       radius: 36,
-                      backgroundColor: Color(player.avatarColor),
-                      child: Text(
-                        player.name.isNotEmpty ? player.name.characters.first : '?',
-                        style: const TextStyle(
-                          color: AppColors.pureWhite,
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      showInitialBadge: true,
                     ),
                     const SizedBox(height: 20),
                     const Text(
@@ -936,19 +921,9 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
                   ),
                   child: Row(
                     children: [
-                      CircleAvatar(
+                      PlayerAvatar(
+                        name: player.name,
                         radius: 16,
-                        backgroundColor: Color(player.avatarColor),
-                        child: Text(
-                          player.name.isNotEmpty
-                              ? player.name.characters.first
-                              : '?',
-                          style: const TextStyle(
-                            color: AppColors.pureWhite,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                          ),
-                        ),
                       ),
                       const SizedBox(width: 12),
                       Text(
@@ -1233,16 +1208,9 @@ class _MafiaGameScreenState extends ConsumerState<MafiaGameScreen> {
           ),
           child: Row(
             children: [
-              CircleAvatar(
+              PlayerAvatar(
+                name: name,
                 radius: 18,
-                backgroundColor: Color(avatarColor),
-                child: Text(
-                  name.isNotEmpty ? name.characters.first : '?',
-                  style: const TextStyle(
-                    color: AppColors.pureWhite,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
               ),
               const SizedBox(width: 14),
               Expanded(

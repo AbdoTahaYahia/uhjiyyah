@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:uhjiyyah/core/theme/app_theme.dart';
+import 'package:uhjiyyah/core/widgets/player_avatar.dart';
 import '../models/who_among_us_game_state.dart';
 import '../providers/who_among_us_game_provider.dart';
 
@@ -131,13 +132,9 @@ class WhoAmongUsGameScreen extends ConsumerWidget {
             ),
             child: Row(
               children: [
-                CircleAvatar(
-                  backgroundColor: Color(currentVoter.avatarColor),
+                PlayerAvatar(
+                  name: currentVoter.name,
                   radius: 16,
-                  child: Text(
-                    currentVoter.name.substring(0, 1),
-                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -191,13 +188,10 @@ class WhoAmongUsGameScreen extends ConsumerWidget {
                     ),
                     child: Row(
                       children: [
-                        CircleAvatar(
-                          backgroundColor: Color(candidate.avatarColor),
+                        PlayerAvatar(
+                          name: candidate.name,
                           radius: 18,
-                          child: Text(
-                            candidate.name.substring(0, 1),
-                            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                          ),
+                          showInitialBadge: true,
                         ),
                         const SizedBox(width: 14),
                         Expanded(
@@ -244,13 +238,10 @@ class WhoAmongUsGameScreen extends ConsumerWidget {
               children: [
                 const Text('الشخص المختار', style: TextStyle(color: AppColors.textSecondary, fontSize: 13)),
                 const SizedBox(height: 8),
-                CircleAvatar(
-                  backgroundColor: Color(winnerPlayer.avatarColor),
+                PlayerAvatar(
+                  name: winnerPlayer.name,
                   radius: 28,
-                  child: Text(
-                    winnerPlayer.name.substring(0, 1),
-                    style: const TextStyle(fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
+                  showInitialBadge: true,
                 ),
                 const SizedBox(height: 10),
                 Text(
@@ -387,13 +378,9 @@ class WhoAmongUsGameScreen extends ConsumerWidget {
                         ),
                       ),
                       const SizedBox(width: 14),
-                      CircleAvatar(
-                        backgroundColor: Color(player.avatarColor),
+                      PlayerAvatar(
+                        name: player.name,
                         radius: 16,
-                        child: Text(
-                          player.name.substring(0, 1),
-                          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
                       ),
                       const SizedBox(width: 12),
                       Expanded(

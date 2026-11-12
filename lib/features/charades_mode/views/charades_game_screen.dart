@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:uhjiyyah/core/theme/app_theme.dart';
+import 'package:uhjiyyah/core/widgets/player_avatar.dart';
 import '../models/charades_game_state.dart';
 import '../providers/charades_game_provider.dart';
 
@@ -89,13 +90,10 @@ class CharadesGameScreen extends ConsumerWidget {
                     ),
                     child: Row(
                       children: [
-                        CircleAvatar(
-                          backgroundColor: Color(actor.avatarColor),
+                        PlayerAvatar(
+                          name: actor.name,
                           radius: 18,
-                          child: Text(
-                            actor.name.characters.first,
-                            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                          ),
+                          showInitialBadge: true,
                         ),
                         const SizedBox(width: 12),
                         Expanded(

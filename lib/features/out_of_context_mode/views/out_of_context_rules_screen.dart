@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:uhjiyyah/core/providers/players_provider.dart';
 import 'package:uhjiyyah/core/theme/app_theme.dart';
+import 'package:uhjiyyah/core/widgets/player_avatar.dart';
 import '../providers/out_of_context_game_provider.dart';
 
 class OutOfContextRulesScreen extends ConsumerWidget {
@@ -102,8 +103,8 @@ class OutOfContextRulesScreen extends ConsumerWidget {
                         return Chip(
                           backgroundColor: AppColors.surface,
                           side: const BorderSide(color: AppColors.surfaceBorder),
-                          avatar: CircleAvatar(
-                            backgroundColor: Color(p.avatarColor),
+                          avatar: PlayerAvatar(
+                            name: p.name,
                             radius: 10,
                           ),
                           label: Text(
