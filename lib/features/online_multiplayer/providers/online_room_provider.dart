@@ -161,6 +161,25 @@ class OnlineRoomNotifier extends Notifier<OnlineRoomState> {
     });
   }
 
+  Future<void> sendChatMessage(String text) async {
+    final room = state.room;
+    final myId = state.myPlayerId;
+    final myName = state.myPlayerName;
+    if (room == null || myId == null || myName == null) return;
+    final trimmed = text.trim();
+    if (trimmed.isEmpty) return;
+
+    final message = RoomChatMessage(
+      id: '${DateTime.now().millisecondsSinceEpoch}_$myId',
+      senderId: myId,
+      senderName: myName,
+      text: trimmed,
+      timestamp: DateTime.now().millisecondsSinceEpoch,
+    );
+
+    await _service.sendChatMessage(code: room.code, message: message);
+  }
+
   Future<void> leaveRoom() async {
     final room = state.room;
     final myId = state.myPlayerId;

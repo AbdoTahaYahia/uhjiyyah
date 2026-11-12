@@ -245,6 +245,33 @@ class OnlineRoomService {
     }
   }
 
+  Future<void> sendChatMessage({
+    required String code,
+    required RoomChatMessage message,
+  }) async {
+    final normalizedCode = code.trim().toUpperCase();
+    final db = _firestore;
+
+    if (db != null) {
+      try {
+        final docRef = db.collection('rooms').doc(normalizedCode);
+        await docRef.update({
+          'messages': FieldValue.arrayUnion([message.toMap()]),
+        });
+        return;
+      } catch (_) {}
+    }
+
+    final room = _localRooms[normalizedCode];
+    if (room != null) {
+      final updated = room.copyWith(
+        messages: [...room.messages, message],
+      );
+      _localRooms[normalizedCode] = updated;
+      _getOrCreateLocalController(normalizedCode).add(updated);
+    }
+  }
+
   StreamController<OnlineRoom?> _getOrCreateLocalController(String code) {
     return _localRoomControllers.putIfAbsent(
       code,

@@ -56,12 +56,49 @@ class OnlinePlayer {
   }
 }
 
+class RoomChatMessage {
+  final String id;
+  final String senderId;
+  final String senderName;
+  final String text;
+  final int timestamp; // epoch millis
+
+  const RoomChatMessage({
+    required this.id,
+    required this.senderId,
+    required this.senderName,
+    required this.text,
+    required this.timestamp,
+  });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'senderId': senderId,
+      'senderName': senderName,
+      'text': text,
+      'timestamp': timestamp,
+    };
+  }
+
+  factory RoomChatMessage.fromMap(Map<String, dynamic> map) {
+    return RoomChatMessage(
+      id: map['id'] as String? ?? '',
+      senderId: map['senderId'] as String? ?? '',
+      senderName: map['senderName'] as String? ?? 'لاعب',
+      text: map['text'] as String? ?? '',
+      timestamp: map['timestamp'] as int? ?? DateTime.now().millisecondsSinceEpoch,
+    );
+  }
+}
+
 class OnlineRoom {
   final String code;
   final String hostId;
   final String gameModeId;
   final String status; // 'waiting', 'in_game', 'finished'
   final List<OnlinePlayer> players;
+  final List<RoomChatMessage> messages;
   final Map<String, dynamic> gameState;
 
   const OnlineRoom({
@@ -70,6 +107,7 @@ class OnlineRoom {
     this.gameModeId = 'mafia',
     this.status = 'waiting',
     this.players = const [],
+    this.messages = const [],
     this.gameState = const {},
   });
 
@@ -80,6 +118,7 @@ class OnlineRoom {
       'gameModeId': gameModeId,
       'status': status,
       'players': players.map((p) => p.toMap()).toList(),
+      'messages': messages.map((m) => m.toMap()).toList(),
       'gameState': gameState,
     };
   }
@@ -93,6 +132,9 @@ class OnlineRoom {
       players: (map['players'] as List<dynamic>? ?? [])
           .map((item) => OnlinePlayer.fromMap(Map<String, dynamic>.from(item as Map)))
           .toList(),
+      messages: (map['messages'] as List<dynamic>? ?? [])
+          .map((item) => RoomChatMessage.fromMap(Map<String, dynamic>.from(item as Map)))
+          .toList(),
       gameState: Map<String, dynamic>.from(map['gameState'] as Map? ?? {}),
     );
   }
@@ -103,6 +145,7 @@ class OnlineRoom {
     String? gameModeId,
     String? status,
     List<OnlinePlayer>? players,
+    List<RoomChatMessage>? messages,
     Map<String, dynamic>? gameState,
   }) {
     return OnlineRoom(
@@ -111,6 +154,7 @@ class OnlineRoom {
       gameModeId: gameModeId ?? this.gameModeId,
       status: status ?? this.status,
       players: players ?? this.players,
+      messages: messages ?? this.messages,
       gameState: gameState ?? this.gameState,
     );
   }
