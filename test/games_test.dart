@@ -154,6 +154,25 @@ void main() {
 
     notifier.startTurn();
     expect(container.read(charadesGameProvider).phase, CharadesPhase.acting);
+    expect(container.read(charadesGameProvider).remainingWordSwaps, 3);
+
+    // Test word swapping up to 3 times
+    final firstCard = container.read(charadesGameProvider).currentCard.title;
+    notifier.swapCurrentCard();
+    expect(container.read(charadesGameProvider).remainingWordSwaps, 2);
+    final secondCard = container.read(charadesGameProvider).currentCard.title;
+    expect(secondCard, isNot(firstCard));
+
+    notifier.swapCurrentCard();
+    expect(container.read(charadesGameProvider).remainingWordSwaps, 1);
+    notifier.swapCurrentCard();
+    expect(container.read(charadesGameProvider).remainingWordSwaps, 0);
+
+    // 4th swap should be ignored
+    final fourthCard = container.read(charadesGameProvider).currentCard.title;
+    notifier.swapCurrentCard();
+    expect(container.read(charadesGameProvider).remainingWordSwaps, 0);
+    expect(container.read(charadesGameProvider).currentCard.title, fourthCard);
 
     notifier.teamGuessedCorrectly();
     expect(container.read(charadesGameProvider).phase, CharadesPhase.roundSummary);

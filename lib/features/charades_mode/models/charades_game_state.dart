@@ -29,6 +29,7 @@ class CharadesGameState {
   final int totalRounds;
   final List<CharadesCard> cardsPool;
   final int currentCardIndex;
+  final int remainingWordSwaps;
   final int secondsRemaining;
   final bool isTimerRunning;
   final bool? lastRoundSuccess; // null if pending, true if guessed, false if timeout/skip
@@ -48,6 +49,7 @@ class CharadesGameState {
     this.totalRounds = 5,
     this.cardsPool = const [],
     this.currentCardIndex = 0,
+    this.remainingWordSwaps = 3,
     this.secondsRemaining = 90,
     this.isTimerRunning = false,
     this.lastRoundSuccess,
@@ -93,6 +95,7 @@ class CharadesGameState {
     int? totalRounds,
     List<CharadesCard>? cardsPool,
     int? currentCardIndex,
+    int? remainingWordSwaps,
     int? secondsRemaining,
     bool? isTimerRunning,
     bool? lastRoundSuccess,
@@ -112,6 +115,7 @@ class CharadesGameState {
       totalRounds: totalRounds ?? this.totalRounds,
       cardsPool: cardsPool ?? this.cardsPool,
       currentCardIndex: currentCardIndex ?? this.currentCardIndex,
+      remainingWordSwaps: remainingWordSwaps ?? this.remainingWordSwaps,
       secondsRemaining: secondsRemaining ?? this.secondsRemaining,
       isTimerRunning: isTimerRunning ?? this.isTimerRunning,
       lastRoundSuccess: lastRoundSuccess,

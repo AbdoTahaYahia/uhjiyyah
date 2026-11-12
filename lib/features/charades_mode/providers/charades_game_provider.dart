@@ -40,6 +40,7 @@ class CharadesGameNotifier extends Notifier<CharadesGameState> {
       totalRounds: totalRounds,
       cardsPool: shuffled,
       currentCardIndex: 0,
+      remainingWordSwaps: 3,
       secondsRemaining: 90,
       isTimerRunning: false,
     );
@@ -50,6 +51,7 @@ class CharadesGameNotifier extends Notifier<CharadesGameState> {
     state = state.copyWith(
       phase: CharadesPhase.acting,
       secondsRemaining: 90,
+      remainingWordSwaps: 3,
       isTimerRunning: true,
       lastRoundSuccess: null,
     );
@@ -88,6 +90,18 @@ class CharadesGameNotifier extends Notifier<CharadesGameState> {
     );
   }
 
+  void swapCurrentCard() {
+    if (state.phase != CharadesPhase.acting) return;
+    if (state.remainingWordSwaps <= 0) return;
+    if (state.cardsPool.isEmpty) return;
+
+    final nextCardIdx = (state.currentCardIndex + 1) % state.cardsPool.length;
+    state = state.copyWith(
+      currentCardIndex: nextCardIdx,
+      remainingWordSwaps: state.remainingWordSwaps - 1,
+    );
+  }
+
   void nextTurn() {
     _timer?.cancel();
     final nextCardIdx = (state.currentCardIndex + 1) % state.cardsPool.length;
@@ -99,6 +113,7 @@ class CharadesGameNotifier extends Notifier<CharadesGameState> {
         currentTeam: CharadesTeam.teamB,
         teamAActorIndex: state.teamAActorIndex + 1,
         currentCardIndex: nextCardIdx,
+        remainingWordSwaps: 3,
         secondsRemaining: 90,
         lastRoundSuccess: null,
       );
@@ -113,6 +128,7 @@ class CharadesGameNotifier extends Notifier<CharadesGameState> {
           currentTeam: CharadesTeam.teamA,
           teamBActorIndex: nextBActorIdx,
           currentCardIndex: nextCardIdx,
+          remainingWordSwaps: 3,
           secondsRemaining: 90,
           lastRoundSuccess: null,
         );

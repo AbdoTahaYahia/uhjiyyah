@@ -248,6 +248,33 @@ class CharadesGameScreen extends ConsumerWidget {
                     'ممنوع الكلام أو الإشارة للحروف!',
                     style: TextStyle(color: AppColors.textSecondary, fontSize: 13),
                   ),
+                  const SizedBox(height: 18),
+
+                  // Word Swap Button (Up to 3 times per turn)
+                  OutlinedButton.icon(
+                    onPressed: state.remainingWordSwaps > 0
+                        ? () => ref.read(charadesGameProvider.notifier).swapCurrentCard()
+                        : null,
+                    icon: const Icon(Icons.cached, size: 18),
+                    label: Text(
+                      state.remainingWordSwaps > 0
+                          ? 'تغيير الكلمة (متبقي ${state.remainingWordSwaps} من 3)'
+                          : 'استنفدت محاولات التغيير',
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(
+                        color: state.remainingWordSwaps > 0
+                            ? AppColors.surfaceBorder
+                            : AppColors.surfaceBorder.withValues(alpha: 0.3),
+                      ),
+                      foregroundColor: state.remainingWordSwaps > 0
+                          ? AppColors.pureWhite
+                          : AppColors.textMuted,
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    ),
+                  ),
                 ],
               ),
             ),
