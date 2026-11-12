@@ -1,23 +1,33 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:uhjiyyah/core/theme/app_theme.dart';
+import 'package:uhjiyyah/features/charades_mode/views/charades_game_screen.dart';
+import 'package:uhjiyyah/features/charades_mode/views/charades_rules_screen.dart';
+import 'package:uhjiyyah/features/heads_up_mode/views/heads_up_game_screen.dart';
+import 'package:uhjiyyah/features/heads_up_mode/views/heads_up_rules_screen.dart';
 import 'package:uhjiyyah/features/home/home_screen.dart';
 import 'package:uhjiyyah/features/mafia_mode/views/mafia_game_screen.dart';
 import 'package:uhjiyyah/features/mafia_mode/views/mafia_rules_screen.dart';
+import 'package:uhjiyyah/features/out_of_context_mode/views/out_of_context_game_screen.dart';
+import 'package:uhjiyyah/features/out_of_context_mode/views/out_of_context_rules_screen.dart';
 import 'package:uhjiyyah/features/players_setup/players_setup_screen.dart';
+import 'package:uhjiyyah/features/spy_mode/views/spy_game_screen.dart';
+import 'package:uhjiyyah/features/spy_mode/views/spy_rules_screen.dart';
+import 'package:uhjiyyah/features/who_among_us_mode/views/who_among_us_game_screen.dart';
+import 'package:uhjiyyah/features/who_among_us_mode/views/who_among_us_rules_screen.dart';
+import 'package:uhjiyyah/features/wink_mode/views/wink_game_screen.dart';
+import 'package:uhjiyyah/features/wink_mode/views/wink_rules_screen.dart';
 
 /// Application-wide router configuration using GoRouter.
 ///
 /// Route tree:
-/// - `/` → [PlayersSetupScreen] — Initial screen for adding players
-/// - `/home` → [HomeScreen] — Main game selection menu
-/// - `/mafia` → placeholder (future)
-/// - `/out-of-context` → placeholder (future)
-/// - `/heads-up` → placeholder (future)
-/// - `/who-among-us` → placeholder (future)
-/// - `/charades` → placeholder (future)
-/// - `/wink` → placeholder (future)
-/// - `/spy` → placeholder (future)
+/// - `/` → [PlayersSetupScreen]
+/// - `/home` → [HomeScreen]
+/// - `/mafia` → [MafiaRulesScreen], `/mafia/play` → [MafiaGameScreen]
+/// - `/spy` → [SpyRulesScreen], `/spy/play` → [SpyGameScreen]
+/// - `/out-of-context` → [OutOfContextRulesScreen], `/out-of-context/play` → [OutOfContextGameScreen]
+/// - `/heads-up` → [HeadsUpRulesScreen], `/heads-up/play` → [HeadsUpGameScreen]
+/// - `/who-among-us` → [WhoAmongUsRulesScreen], `/who-among-us/play` → [WhoAmongUsGameScreen]
+/// - `/charades` → [CharadesRulesScreen], `/charades/play` → [CharadesGameScreen]
+/// - `/wink` → [WinkRulesScreen], `/wink/play` → [WinkGameScreen]
 final GoRouter appRouter = GoRouter(
   initialLocation: '/',
   routes: [
@@ -31,9 +41,8 @@ final GoRouter appRouter = GoRouter(
       name: 'home',
       builder: (context, state) => const HomeScreen(),
     ),
-    // Placeholder routes for future game modes.
-    // Each game mode will have its own isolated feature module.
-    // Mafia Mode — Active Feature Module
+
+    // 1. Mafia Mode
     GoRoute(
       path: '/mafia',
       name: 'mafia',
@@ -44,80 +53,77 @@ final GoRouter appRouter = GoRouter(
       name: 'mafia_play',
       builder: (context, state) => const MafiaGameScreen(),
     ),
-    GoRoute(
-      path: '/out-of-context',
-      name: 'out_of_context',
-      builder: (context, state) => const _ComingSoonPlaceholder(title: 'خارج السياق'),
-    ),
-    GoRoute(
-      path: '/heads-up',
-      name: 'heads_up',
-      builder: (context, state) => const _ComingSoonPlaceholder(title: 'احزر الكلمة'),
-    ),
-    GoRoute(
-      path: '/who-among-us',
-      name: 'who_among_us',
-      builder: (context, state) => const _ComingSoonPlaceholder(title: 'مين فينا'),
-    ),
-    GoRoute(
-      path: '/charades',
-      name: 'charades',
-      builder: (context, state) => const _ComingSoonPlaceholder(title: 'تمثيل'),
-    ),
-    GoRoute(
-      path: '/wink',
-      name: 'wink',
-      builder: (context, state) => const _ComingSoonPlaceholder(title: 'الغمزة'),
-    ),
+
+    // 2. Spy Mode
     GoRoute(
       path: '/spy',
       name: 'spy',
-      builder: (context, state) => const _ComingSoonPlaceholder(title: 'الجاسوس'),
+      builder: (context, state) => const SpyRulesScreen(),
+    ),
+    GoRoute(
+      path: '/spy/play',
+      name: 'spy_play',
+      builder: (context, state) => const SpyGameScreen(),
+    ),
+
+    // 3. Out of Context Mode
+    GoRoute(
+      path: '/out-of-context',
+      name: 'out_of_context',
+      builder: (context, state) => const OutOfContextRulesScreen(),
+    ),
+    GoRoute(
+      path: '/out-of-context/play',
+      name: 'out_of_context_play',
+      builder: (context, state) => const OutOfContextGameScreen(),
+    ),
+
+    // 4. Heads Up Mode
+    GoRoute(
+      path: '/heads-up',
+      name: 'heads_up',
+      builder: (context, state) => const HeadsUpRulesScreen(),
+    ),
+    GoRoute(
+      path: '/heads-up/play',
+      name: 'heads_up_play',
+      builder: (context, state) => const HeadsUpGameScreen(),
+    ),
+
+    // 5. Who Among Us Mode
+    GoRoute(
+      path: '/who-among-us',
+      name: 'who_among_us',
+      builder: (context, state) => const WhoAmongUsRulesScreen(),
+    ),
+    GoRoute(
+      path: '/who-among-us/play',
+      name: 'who_among_us_play',
+      builder: (context, state) => const WhoAmongUsGameScreen(),
+    ),
+
+    // 6. Charades Mode
+    GoRoute(
+      path: '/charades',
+      name: 'charades',
+      builder: (context, state) => const CharadesRulesScreen(),
+    ),
+    GoRoute(
+      path: '/charades/play',
+      name: 'charades_play',
+      builder: (context, state) => const CharadesGameScreen(),
+    ),
+
+    // 7. Wink Mode
+    GoRoute(
+      path: '/wink',
+      name: 'wink',
+      builder: (context, state) => const WinkRulesScreen(),
+    ),
+    GoRoute(
+      path: '/wink/play',
+      name: 'wink_play',
+      builder: (context, state) => const WinkGameScreen(),
     ),
   ],
 );
-
-/// Temporary placeholder screen for game modes not yet implemented.
-class _ComingSoonPlaceholder extends StatelessWidget {
-  final String title;
-  const _ComingSoonPlaceholder({required this.title});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(title: Text(title)),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.construction_outlined, size: 70, color: AppColors.textSecondary),
-            const SizedBox(height: 24),
-            Text(
-              'قريباً...',
-              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    color: AppColors.textPrimary,
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              'هذه اللعبة قيد التطوير والإطلاق في التحديث القادم',
-              style: TextStyle(color: AppColors.textSecondary, fontSize: 15),
-            ),
-            const SizedBox(height: 32),
-            OutlinedButton(
-              onPressed: () => context.go('/home'),
-              style: OutlinedButton.styleFrom(
-                side: const BorderSide(color: AppColors.surfaceBorder),
-                foregroundColor: AppColors.textPrimary,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-              ),
-              child: const Text('العودة للقائمة'),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
