@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:uhjiyyah/features/charades_mode/views/charades_game_screen.dart';
 import 'package:uhjiyyah/features/charades_mode/views/charades_rules_screen.dart';
@@ -11,6 +12,7 @@ import 'package:uhjiyyah/features/online_multiplayer/views/online_room_screen.da
 import 'package:uhjiyyah/features/out_of_context_mode/views/out_of_context_game_screen.dart';
 import 'package:uhjiyyah/features/out_of_context_mode/views/out_of_context_rules_screen.dart';
 import 'package:uhjiyyah/features/players_setup/players_setup_screen.dart';
+import 'package:uhjiyyah/features/splash/splash_screen.dart';
 import 'package:uhjiyyah/features/spy_mode/views/spy_game_screen.dart';
 import 'package:uhjiyyah/features/spy_mode/views/spy_rules_screen.dart';
 import 'package:uhjiyyah/features/who_among_us_mode/views/who_among_us_game_screen.dart';
@@ -18,42 +20,79 @@ import 'package:uhjiyyah/features/who_among_us_mode/views/who_among_us_rules_scr
 import 'package:uhjiyyah/features/wink_mode/views/wink_game_screen.dart';
 import 'package:uhjiyyah/features/wink_mode/views/wink_rules_screen.dart';
 
+CustomTransitionPage<T> _buildPageTransition<T>({
+  required BuildContext context,
+  required GoRouterState state,
+  required Widget child,
+}) {
+  return CustomTransitionPage<T>(
+    key: state.pageKey,
+    child: child,
+    transitionDuration: const Duration(milliseconds: 320),
+    reverseTransitionDuration: const Duration(milliseconds: 280),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      final curvedAnimation = CurvedAnimation(
+        parent: animation,
+        curve: Curves.easeOutCubic,
+        reverseCurve: Curves.easeInCubic,
+      );
+      return FadeTransition(
+        opacity: curvedAnimation,
+        child: ScaleTransition(
+          scale: Tween<double>(begin: 0.96, end: 1.0).animate(curvedAnimation),
+          child: child,
+        ),
+      );
+    },
+  );
+}
+
 /// Application-wide router configuration using GoRouter.
-///
-/// Route tree:
-/// - `/` → [PlayersSetupScreen]
-/// - `/home` → [HomeScreen]
-/// - `/mafia` → [MafiaRulesScreen], `/mafia/play` → [MafiaGameScreen]
-/// - `/spy` → [SpyRulesScreen], `/spy/play` → [SpyGameScreen]
-/// - `/out-of-context` → [OutOfContextRulesScreen], `/out-of-context/play` → [OutOfContextGameScreen]
-/// - `/heads-up` → [HeadsUpRulesScreen], `/heads-up/play` → [HeadsUpGameScreen]
-/// - `/who-among-us` → [WhoAmongUsRulesScreen], `/who-among-us/play` → [WhoAmongUsGameScreen]
-/// - `/charades` → [CharadesRulesScreen], `/charades/play` → [CharadesGameScreen]
-/// - `/wink` → [WinkRulesScreen], `/wink/play` → [WinkGameScreen]
 final GoRouter appRouter = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/splash',
   routes: [
+    GoRoute(
+      path: '/splash',
+      name: 'splash',
+      builder: (context, state) => const SplashScreen(),
+    ),
     GoRoute(
       path: '/',
       name: 'players_setup',
-      builder: (context, state) => const PlayersSetupScreen(),
+      pageBuilder: (context, state) => _buildPageTransition(
+        context: context,
+        state: state,
+        child: const PlayersSetupScreen(),
+      ),
     ),
     GoRoute(
       path: '/home',
       name: 'home',
-      builder: (context, state) => const HomeScreen(),
+      pageBuilder: (context, state) => _buildPageTransition(
+        context: context,
+        state: state,
+        child: const HomeScreen(),
+      ),
     ),
 
-    // Online Multiplayer (Firebase)
+    // Online Multiplayer
     GoRoute(
       path: '/online',
       name: 'online_lobby',
-      builder: (context, state) => const OnlineLobbyScreen(),
+      pageBuilder: (context, state) => _buildPageTransition(
+        context: context,
+        state: state,
+        child: const OnlineLobbyScreen(),
+      ),
     ),
     GoRoute(
       path: '/online/room',
       name: 'online_room',
-      builder: (context, state) => const OnlineRoomScreen(),
+      pageBuilder: (context, state) => _buildPageTransition(
+        context: context,
+        state: state,
+        child: const OnlineRoomScreen(),
+      ),
     ),
 
     // 1. Mafia Mode
